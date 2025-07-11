@@ -15,8 +15,8 @@
 *.userprefs
 
 # Ignore the appsettings.json file
-appsettings.json
-appsettings.*.json
+**/appsettings.json
+**/appsettings.*.json
 
 # Build results
 [Dd]ebug/

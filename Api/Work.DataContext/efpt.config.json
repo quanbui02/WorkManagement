@@ -1,0 +1,658 @@
+﻿{
+   "CodeGenerationMode": 4,
+   "ContextClassName": "WorkManagementContext",
+   "ContextNamespace": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "MinimumProductVersion": "2.6.0",
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "Work.DataContext",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[Actions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AlePayTransactionInfos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Banks]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BannerCategories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Banners]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Brands]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CallTransactions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Categories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Chats]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ChatTopics]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Clients]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Comments]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Companys]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Contents]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Countries]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CourseLessions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Courses]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Customers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DealTypes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DeliveryCategories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DeliveryServices]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DeliveryShops]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DeliveryTags]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Department]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Districts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Domains]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Faqs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[FeedbackCategories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Feedbacks]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[FeedbackStatus]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Feeds]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[FoodCategories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[FoodJoinCategories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[FoodLikes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[FoodProducts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Foods]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Gifts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[GroupRegs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Groups]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[HtMenu]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[HtMenuUser]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[InvoiceDetails]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[InvoiceFiles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[InvoiceHeaderExtras]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Invoices]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[InvoiceTaxBreakdowns]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[InvoiceTemplates]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[LessionLikes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[LessionPathologies]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[LessionProducts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[LessionRates]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[LessonDetails]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Lessons]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Levels]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Likes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[LogSms]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[News]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[NewsCategories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[NoteCourse]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Notifications]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OmiCallLogs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OrderActions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OrderDetails]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OrderGifts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OrderPromotions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OrderPromotionSales]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OrderPromotionUsers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Orders]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[OrderStatus]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PartLessions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Pathologies]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PathologyCategories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Points]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Popups]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProductCategories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProductCombos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProductLogs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProductProvinces]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProductRegs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Products]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PromotionNotIns]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PromotionProducts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Promotions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PromotionSaleNotIns]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PromotionSaleProducts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PromotionSales]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PromotionSalesGiftcode]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PromotionSalesGiftProducts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PromotionUserLevels]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PromotionUserNotIns]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PromotionUserProducts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PromotionUsers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PromotionUsersGiftcode]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PromotionUsersGiftProducts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Provinces]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[QuestionLessions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SaleActions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SaleOrderActions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SaleOrderDetails]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SaleOrders]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SaleOrderStatus]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SalesFlows]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SaleStatus]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Settings]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ShipConfigs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ShippingAddress]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ShippingServices]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ShopHistories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ShopInOutDetails]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ShopInOuts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ShopOperations]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ShopProducts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Shops]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Statements]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Status]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Suppliers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SysConfigs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TagMaps]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Tags]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TempTable]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Themes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TopicCategories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TopicUsers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserAddress]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserAddressShopLocations]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Users]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserWebs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Wards]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WarehouseHistories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WarehouseInOutDetails]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WarehouseInOuts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WarehouseInOutStatus]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WarehouseInOutTemps]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WarehouseOperations]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WarehouseProducts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Warehouses]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WebhookLogs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WmActions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WmFeedCommentLikes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WmLabels]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WmNotes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WmParticipants]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WmProjectCols]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WmProjectFiles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WmProjectFolders]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WmProjectMembers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WmProjects]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WmShortCutLinks]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WmSprints]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WmTaskCommentLikes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WmTaskComments]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WmTaskLogs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WmTasks]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDatabaseNamesForRoutines": true,
+   "UseDateOnlyTimeOnly": true,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": false,
+   "UseInternalAccessModifiersForSprocsAndFunctions": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false,
+   "UseT4Split": false
+}

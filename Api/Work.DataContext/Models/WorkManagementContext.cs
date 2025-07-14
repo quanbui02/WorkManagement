@@ -157,6 +157,8 @@ public partial class WorkManagementContext : DbContext
 
     public virtual DbSet<PathologyCategories> PathologyCategories { get; set; }
 
+    public virtual DbSet<Permissions> Permissions { get; set; }
+
     public virtual DbSet<Points> Points { get; set; }
 
     public virtual DbSet<Popups> Popups { get; set; }
@@ -2225,6 +2227,14 @@ public partial class WorkManagementContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(150);
             entity.Property(e => e.Sort).HasComment("Sắp xếp thứ tự");
             entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+        });
+
+        modelBuilder.Entity<Permissions>(entity =>
+        {
+            entity.Property(e => e.Controller).HasMaxLength(100);
+            entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.Permission).HasMaxLength(200);
+            entity.Property(e => e.Service).HasMaxLength(100);
         });
 
         modelBuilder.Entity<Points>(entity =>

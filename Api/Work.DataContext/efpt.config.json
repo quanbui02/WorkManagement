@@ -304,6 +304,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[Permissions]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Points]",
          "ObjectType": 0
       },

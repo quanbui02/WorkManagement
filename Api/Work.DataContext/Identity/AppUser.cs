@@ -10,7 +10,6 @@ namespace Work.DataContext
 {
     public class AppUser : IdentityUser
     {
-        // Thêm trường tuỳ ý
-        public Users UsersNavigation { get; set; }  // Navigation ngược (nếu cần)
+        public bool IsSuperUser { get; set; }
     }
 }

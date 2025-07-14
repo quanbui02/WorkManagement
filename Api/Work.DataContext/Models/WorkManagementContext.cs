@@ -323,13 +323,6 @@ public partial class WorkManagementContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
-        ////Thêm tay lại khi Ánh xạ lại DB
-        //base.OnModelCreating(modelBuilder);
-
-        //modelBuilder.ApplyConfigurationsFromAssembly(typeof(WorkManagementContext).Assembly);
-        ////END Thêm tay lại khi Ánh xạ lại DB
-
         modelBuilder.Entity<Actions>(entity =>
         {
             entity.Property(e => e.Actions1)

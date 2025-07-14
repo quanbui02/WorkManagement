@@ -45,7 +45,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"),
-        b => b.MigrationsAssembly("Work.DataContext")
+        b => b.MigrationsAssembly("Work.DataContext") // migration sang class Library Work.DataContext
     ));
 
 builder.Services.AddDbContext<WorkManagementContext>(options =>

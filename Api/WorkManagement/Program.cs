@@ -6,6 +6,7 @@ using Work.DataContext;
 using Work.DataContext.Models;
 using WorkManagement.Model;
 using WorkManagement;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,7 +55,6 @@ builder.Services
         };
     });
  
-builder.Services.AddCustomService(builder.Configuration);
 
 builder.Services.AddAuthorization();
 
@@ -67,6 +67,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddDbContext<WorkManagementContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+
+builder.Services.AddCustomService(builder.Configuration);
 
 var app = builder.Build();
 

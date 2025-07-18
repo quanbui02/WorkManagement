@@ -12,6 +12,8 @@ public partial class Users
     /// </summary>
     public int UserId { get; set; }
 
+    public string UserIdGuid { get; set; }
+
     /// <summary>
     /// Id cha
     /// </summary>

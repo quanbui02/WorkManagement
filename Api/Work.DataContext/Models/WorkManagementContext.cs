@@ -3664,9 +3664,7 @@ public partial class WorkManagementContext : DbContext
         {
             entity.HasKey(e => e.UserId).HasName("PK_PzUsers");
 
-            entity.Property(e => e.UserId)
-                .ValueGeneratedNever()
-                .HasComment("1: CTV, 2: DN,");
+            entity.Property(e => e.UserId).HasComment("1: CTV, 2: DN,");
             entity.Property(e => e.Address).HasMaxLength(500);
             entity.Property(e => e.Avatar)
                 .HasMaxLength(150)
@@ -3770,6 +3768,7 @@ public partial class WorkManagementContext : DbContext
                 .HasDefaultValue(0.0)
                 .HasComment("Tổng thưởng");
             entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+            entity.Property(e => e.UserIdGuid).HasMaxLength(450);
             entity.Property(e => e.UserName).HasMaxLength(150);
             entity.Property(e => e.Version)
                 .HasMaxLength(50)

@@ -11,5 +11,6 @@ namespace Work.DataContext
     public class AppUser : IdentityUser
     {
         public bool IsSuperUser { get; set; }
+        public ICollection<RefreshToken> RefreshTokens { get; set; }
     }
 }

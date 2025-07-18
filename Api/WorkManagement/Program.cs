@@ -76,6 +76,9 @@ builder.Services.AddCustomService(builder.Configuration);
 
 var app = builder.Build();
 
+// khởi tạo seed data cho user là admin => nếu cần
+//await SeedHelper.SeedAdminUserAsync(app.Services);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

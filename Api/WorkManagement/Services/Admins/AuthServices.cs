@@ -13,7 +13,7 @@ namespace WorkManagement.Services.Admins
 
     public interface IAuthService
     {
-        Task<(string token, DateTime expires)> LoginAsync(string username, string password);
+        Task<(string token, DateTime expires)> Login(string username, string password);
     }
 
     public class AuthServices : IAuthService
@@ -29,7 +29,7 @@ namespace WorkManagement.Services.Admins
             _configuration = configuration;
         }
 
-        public async Task<(string token, DateTime expires)> LoginAsync(string username, string password)
+        public async Task<(string token, DateTime expires)> Login(string username, string password)
         {
             var user = await _userManager.FindByNameAsync(username);
             if (user == null)

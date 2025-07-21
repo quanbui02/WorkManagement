@@ -21,7 +21,7 @@ namespace WorkManagement.Controllers.Admins
         {
             try
             {
-                var (token, expires) = await _AuthService.LoginAsync(model.Username, model.Password);
+                var (token, expires) = await _AuthService.Login(model.Username, model.Password);
                 return Ok(Result<object>.Success(new { token, expires }));
             }
             catch (UnauthorizedAccessException ex)

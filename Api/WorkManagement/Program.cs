@@ -7,13 +7,37 @@ using Work.DataContext.Models;
 using WorkManagement.Model;
 using WorkManagement;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "WorkManagement", Version = "v1" });
+
+    // Thêm hỗ trợ JWT
+    c.AddSecurityDefinition("Bearer", new()
+    {
+        Description = @"JWT Authorization header.  
+                        Nhập vào: Bearer {token}",
+        Name = "Authorization",
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new()
+    {
+        {
+            new() { Reference = new() { Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme, Id = "Bearer" } },
+            Array.Empty<string>()
+        }
+    });
+});
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -22,39 +46,56 @@ builder.Services.Configure<JwtSettings>(
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+builder.Services.AddIdentity<AppUser, AppRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
 // 🔑 1. Add JWT Bearer
 var jwtSettings = builder.Configuration
-    .GetSection("JwtSettings")
+    .GetSection("Jwt")
     .Get<JwtSettings>();
 
-builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidIssuer = jwtSettings.Issuer,
-            ValidAudience = jwtSettings.Audience,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
-        };
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidIssuer = jwtSettings.Issuer,
+        ValidAudience = jwtSettings.Audience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key)),
+    };
 
-        // Xử lý token hết hạn
-        options.Events = new JwtBearerEvents
+    options.Events = new JwtBearerEvents
+    {
+        OnTokenValidated = context =>
         {
-            OnAuthenticationFailed = context =>
+            var identity = context.Principal.Identity as ClaimsIdentity;
+            var roleAssignClaim = identity.FindFirst("roleassign")?.Value;
+
+            if (!string.IsNullOrEmpty(roleAssignClaim))
             {
-                if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                var roles = System.Text.Json.JsonSerializer.Deserialize<List<string>>(roleAssignClaim);
+                if (roles != null)
                 {
-                    context.Response.Headers.Add("Token-Expired", "true");
+                    foreach (var role in roles)
+                    {
+                        identity.AddClaim(new Claim(ClaimTypes.Role, role));
+                    }
                 }
-                return Task.CompletedTask;
             }
-        };
-    });
- 
+
+            return Task.CompletedTask;
+        }
+    };
+});
 
 builder.Services.AddAuthorization();
 
@@ -67,13 +108,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddDbContext<WorkManagementContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<AppUser, IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
-
 
 builder.Services.AddCustomService(builder.Configuration);
-
 var app = builder.Build();
 
 // khởi tạo seed data cho user là admin => nếu cần
@@ -88,7 +124,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+//app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 

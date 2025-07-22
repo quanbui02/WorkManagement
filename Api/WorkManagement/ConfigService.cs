@@ -1,4 +1,5 @@
-﻿using WorkManagement.Extensions;
+﻿using WorkManagement.Common;
+using WorkManagement.Extensions;
 using WorkManagement.Helper;
 using WorkManagement.Services.Admins;
 namespace WorkManagement
@@ -11,6 +12,9 @@ namespace WorkManagement
             services.DependencyInjectionDatacontext(configuration, connStr);
             #region Dependency Injection
             services.AddScoped<IAuthService, AuthServices>();
+            services.AddScoped<IAppRolesServices, AppRolesServices>();
+            services.AddScoped<IUserInfo, UserInfo>();
+
             #endregion Dependency Injection
         }
 

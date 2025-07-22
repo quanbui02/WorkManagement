@@ -26,8 +26,6 @@ namespace WorkManagement.Controllers.Admins
         [HttpPost]
         public async Task<IActionResult> Save([FromBody] AppRole form)
         {
-            var userId = _userInfo.UserId;
-
             try
             {
                 var data = await _AppRolesServices.Save(form);

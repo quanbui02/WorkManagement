@@ -25,8 +25,6 @@ namespace WorkManagement.Services.Admins
         public async Task<IResult<AppRole>> Save(AppRole form)
         {
             AppRole obj;
-
-            var userId = _userInfo.UserId;
             if (!string.IsNullOrEmpty(form.Id))
             {
                 obj = await _roleManager.FindByIdAsync(form.Id);

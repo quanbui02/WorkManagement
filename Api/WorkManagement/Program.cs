@@ -78,7 +78,7 @@ builder.Services.AddAuthentication(options =>
         OnTokenValidated = context =>
         {
             var identity = context.Principal.Identity as ClaimsIdentity;
-            var roleAssignClaim = identity.FindFirst("roleassign")?.Value;
+            var roleAssignClaim = identity.FindFirst("roleassign")?.Value; // config authorize theo roleassign
 
             if (!string.IsNullOrEmpty(roleAssignClaim))
             {

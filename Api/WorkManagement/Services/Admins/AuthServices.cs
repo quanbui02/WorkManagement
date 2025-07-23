@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Work.DataContext;
 using Work.DataContext.Models;
+using WorkManagement.Helper;
 using WorkManagement.Common;
 
 namespace WorkManagement.Services.Admins
@@ -24,14 +25,16 @@ namespace WorkManagement.Services.Admins
         private readonly IConfiguration _configuration;
         private readonly WorkManagementContext _context;
         private readonly AppDbContext _db;
+        private readonly SecurityKey _rsaKey;
 
-        public AuthServices(UserManager<AppUser> userManager,SignInManager<AppUser> signInManager,IConfiguration configuration, WorkManagementContext context, AppDbContext db)
+        public AuthServices(UserManager<AppUser> userManager,SignInManager<AppUser> signInManager,IConfiguration configuration, WorkManagementContext context, AppDbContext db, SecurityKey rsaKey)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
             _context = context;
             _db = db;
+            _rsaKey = rsaKey;
         }
 
         public async Task<(string token, DateTime expires)> Login(string username, string password)
@@ -105,8 +108,13 @@ namespace WorkManagement.Services.Admins
                 new Claim("amr", "pwd")
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            //var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            //var privateKeyPath = Path.Combine(Directory.GetCurrentDirectory(), _configuration["Jwt:PrivateKeyPath"]);
+            //var rsaKey = JwtKeyHelper.LoadPrivateKey(privateKeyPath);
+            var creds = new SigningCredentials(_rsaKey, SecurityAlgorithms.RsaSha256);
+
             var expires = DateTime.UtcNow.AddHours(8);
 
             var token = new JwtSecurityToken(

@@ -8,6 +8,7 @@ using WorkManagement.Model;
 using WorkManagement;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using WorkManagement.Helper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +56,13 @@ var jwtSettings = builder.Configuration
     .GetSection("Jwt")
     .Get<JwtSettings>();
 
+var privateKeyPath = Path.Combine(Directory.GetCurrentDirectory(), builder.Configuration["Jwt:PrivateKeyPath"]);
+var rsaPrivateKey = JwtKeyHelper.LoadPrivateKey(privateKeyPath);
+
+var publicKeyPath = Path.Combine(Directory.GetCurrentDirectory(), builder.Configuration["Jwt:PublicKeyPath"]);
+var rsaSecurityKey = JwtKeyHelper.LoadPublicKey(publicKeyPath);
+
+builder.Services.AddSingleton<SecurityKey>(rsaPrivateKey);
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -70,7 +78,8 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = true,
         ValidIssuer = jwtSettings.Issuer,
         ValidAudience = jwtSettings.Audience,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key)),
+        //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key)),
+        IssuerSigningKey = rsaSecurityKey,
     };
 
     options.Events = new JwtBearerEvents

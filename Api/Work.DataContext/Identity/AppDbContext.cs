@@ -16,5 +16,6 @@ namespace Work.DataContext
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<AppPermission> AppPermission { get; set; }
         public DbSet<AppController> AppController { get; set; }
+        public DbSet<RolePermission> RolePermission { get; set; }
     }
 }

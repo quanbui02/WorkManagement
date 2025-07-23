@@ -23,13 +23,15 @@ namespace WorkManagement.Services.Admins
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IConfiguration _configuration;
         private readonly WorkManagementContext _context;
+        private readonly AppDbContext _db;
 
-        public AuthServices(UserManager<AppUser> userManager,SignInManager<AppUser> signInManager,IConfiguration configuration, WorkManagementContext context)
+        public AuthServices(UserManager<AppUser> userManager,SignInManager<AppUser> signInManager,IConfiguration configuration, WorkManagementContext context, AppDbContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
             _context = context;
+            _db = db;
         }
 
         public async Task<(string token, DateTime expires)> Login(string username, string password)
@@ -49,6 +51,33 @@ namespace WorkManagement.Services.Admins
             var roles = await _userManager.GetRolesAsync(user);
             var userContext = await _context.Users.FirstOrDefaultAsync(u => u.UserIdGuid == user.Id);
 
+            var permissions = await (
+                from ur in _db.UserRoles
+                join rp in _db.RolePermission on ur.RoleId equals rp.RoleId
+                join ap in _db.AppPermission on rp.AppPermissionId equals ap.Id
+                join ac in _db.AppController on ap.AppControllerId equals ac.Id
+                where ur.UserId == user.Id
+                select new
+                {
+                    Service = "workmanagement",
+                    Controller = ap.Controller,
+                    Index = ap.Index
+                }
+            ).ToListAsync();
+
+            var permissionDict = new Dictionary<string, Dictionary<string, long>>();
+
+            foreach (var p in permissions)
+            {
+                if (!permissionDict.ContainsKey(p.Service))
+                    permissionDict[p.Service] = new Dictionary<string, long>();
+
+                if (!permissionDict[p.Service].ContainsKey(p.Controller))
+                    permissionDict[p.Service][p.Controller] = 0;
+
+                permissionDict[p.Service][p.Controller] |= (long)(1L << p.Index);
+            }
+
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id),
@@ -66,7 +95,7 @@ namespace WorkManagement.Services.Admins
                 new Claim("idShop", userContext.IdShop?.ToString() ?? "0"),
                 new Claim("idType", userContext.IdType?.ToString() ?? "0"),
                 new Claim("roleassign", JsonConvert.SerializeObject(roles)),
-                new Claim("permissions", "{}"),
+                new Claim("permissions", JsonConvert.SerializeObject(permissionDict)),
                 //new Claim("listOrganization", string.Join(";", user.ListOrganization ?? new List<int>())),
                 // optional
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),

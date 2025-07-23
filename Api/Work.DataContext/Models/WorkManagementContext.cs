@@ -17,6 +17,8 @@ public partial class WorkManagementContext : DbContext
 
     public virtual DbSet<AlePayTransactionInfos> AlePayTransactionInfos { get; set; }
 
+    public virtual DbSet<AppController> AppController { get; set; }
+
     public virtual DbSet<Banks> Banks { get; set; }
 
     public virtual DbSet<BannerCategories> BannerCategories { get; set; }
@@ -373,6 +375,20 @@ public partial class WorkManagementContext : DbContext
             entity.Property(e => e.TransactionCode).HasMaxLength(500);
             entity.Property(e => e.TransactionTime).HasMaxLength(500);
             entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+        });
+
+        modelBuilder.Entity<AppController>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.DisplayName).HasMaxLength(250);
+            entity.Property(e => e.GroupName).HasMaxLength(250);
+            entity.Property(e => e.Name).HasMaxLength(250);
+            entity.Property(e => e.Route).HasMaxLength(250);
+
+            entity.HasOne(d => d.IdNavigation).WithOne(p => p.AppController)
+                .HasForeignKey<AppController>(d => d.Id)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AppController_Permissions");
         });
 
         modelBuilder.Entity<Banks>(entity =>

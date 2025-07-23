@@ -18,4 +18,8 @@ public partial class Permissions
     public int? Index { get; set; }
 
     public string Description { get; set; }
+
+    public int? ControllerId { get; set; }
+
+    public virtual AppController AppController { get; set; }
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Work.DataContext;
@@ -12,23 +11,24 @@ namespace WorkManagement.Controllers.Admins
     [Route("[controller]")]
     [ApiController]
     [Authorize(Roles = "Admin")]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class AppRolesController : ControllerBase
+    [PermissionDefinition("Permission Management - Đồng bộ quyền", GroupName = "Phân quyền")]
+    public class SyncPermissionController : ControllerBase
     {
-        private readonly IAppRolesServices _AppRolesServices;
+        private readonly ISyncPermissionServices _SyncPermissionServices;
         private readonly IUserInfo _userInfo;
-        public AppRolesController(IAppRolesServices AppRolesServices, IUserInfo userInfo)
+
+        public SyncPermissionController(ISyncPermissionServices SyncPermissionServices, IUserInfo userInfo)
         {
-            _AppRolesServices = AppRolesServices;
+            _SyncPermissionServices = SyncPermissionServices;
             _userInfo = userInfo;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Save([FromBody] AppRole form)
+        [HttpPost("sync")]
+        public async Task<IActionResult> SyncPermission()
         {
             try
             {
-                var data = await _AppRolesServices.Save(form);
+                var data = await _SyncPermissionServices.ScanAndSavePermissionsAsync();
                 return Ok(data);
             }
             catch (UnauthorizedAccessException ex)

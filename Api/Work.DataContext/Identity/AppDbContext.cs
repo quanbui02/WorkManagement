@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Work.DataContext;
+using Work.DataContext.Identity;
 
 namespace Work.DataContext
 {
@@ -13,6 +14,7 @@ namespace Work.DataContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
-
+        public DbSet<AppPermission> AppPermission { get; set; }
+        public DbSet<AppController> AppController { get; set; }
     }
 }

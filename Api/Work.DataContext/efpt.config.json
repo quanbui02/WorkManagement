@@ -24,10 +24,6 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[AppController]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Banks]",
          "ObjectType": 0
       },
@@ -305,10 +301,6 @@
       },
       {
          "Name": "[dbo].[PathologyCategories]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Permissions]",
          "ObjectType": 0
       },
       {

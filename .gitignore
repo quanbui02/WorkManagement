@@ -11,6 +11,9 @@
 */.vs
 *.psd
 
+# ignore JwtKeys
+Api/WorkManagement/Jwtkeys/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

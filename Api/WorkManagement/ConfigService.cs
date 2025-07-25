@@ -2,6 +2,7 @@
 using WorkManagement.Extensions;
 using WorkManagement.Helper;
 using WorkManagement.Services.Admins;
+using WorkManagement.Services.Clients;
 namespace WorkManagement
 {
     public static class StartUpExtensions
@@ -13,9 +14,10 @@ namespace WorkManagement
             #region Dependency Injection
             services.AddScoped<IAuthService, AuthServices>();
             services.AddScoped<IAppRolesServices, AppRolesServices>();
+            services.AddScoped<ICachingHelper, CachingHelper>();
             services.AddScoped<IUserInfo, UserInfo>();
             services.AddScoped<ISyncPermissionServices, SyncPermissionServices>();
-
+            services.AddScoped<IWmUsersService, WmUsersService>();
             #endregion Dependency Injection
         }
 

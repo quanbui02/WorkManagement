@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkManagement", "API\WorkM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Work.DataContext", "API\Work.DataContext\Work.DataContext.csproj", "{6D62D92B-AD86-6C93-4F90-D406496D3A84}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkManagementNotification", "WorkManagementNotification\WorkManagementNotification.csproj", "{CF903672-B0D4-4D29-B439-354D0A94C9A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6D62D92B-AD86-6C93-4F90-D406496D3A84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D62D92B-AD86-6C93-4F90-D406496D3A84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D62D92B-AD86-6C93-4F90-D406496D3A84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF903672-B0D4-4D29-B439-354D0A94C9A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF903672-B0D4-4D29-B439-354D0A94C9A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF903672-B0D4-4D29-B439-354D0A94C9A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF903672-B0D4-4D29-B439-354D0A94C9A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

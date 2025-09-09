@@ -18,6 +18,7 @@ namespace WorkManagement
             services.AddScoped<IUserInfo, UserInfo>();
             services.AddScoped<ISyncPermissionServices, SyncPermissionServices>();
             services.AddScoped<IWmUsersService, WmUsersService>();
+            services.AddScoped<IAccountServices, AccountServices>();
             #endregion Dependency Injection
         }
 

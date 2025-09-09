@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Work.DataContext.Models;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Work.DataContext
 {
@@ -20,6 +22,12 @@ namespace Work.DataContext
         public string DisplayName { get; set; }
         public string Address { get; set; }
         public string Avatar { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDisable { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Required]
+        public int IdUser { get; set; }
         public ICollection<RefreshToken> RefreshTokens { get; set; }
     }
 }

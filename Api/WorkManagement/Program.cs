@@ -51,6 +51,17 @@ builder.Services.AddIdentity<AppUser, AppRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
+
+// Cho tạo mật khẩu tối thiểu 6 số ko yêu cầu các ký tự đặc biệt hoặc viết hoa
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+});
+
 // 🔑 1. Add JWT Bearer
 var jwtSettings = builder.Configuration
     .GetSection("Jwt")

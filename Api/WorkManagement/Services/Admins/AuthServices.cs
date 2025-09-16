@@ -48,8 +48,8 @@ namespace WorkManagement.Services.Admins
             if (!result.Succeeded)
                 throw new UnauthorizedAccessException("Sai mật khẩu");
 
-            if (!user.IsSuperUser)
-                throw new UnauthorizedAccessException("Tài khoản không có quyền truy cập admin");
+            //if (!user.IsSuperUser)
+            //    throw new UnauthorizedAccessException("Tài khoản không có quyền truy cập admin");
 
             var roles = await _userManager.GetRolesAsync(user);
             var userContext = await _context.Users.FirstOrDefaultAsync(u => u.UserIdGuid == user.Id);

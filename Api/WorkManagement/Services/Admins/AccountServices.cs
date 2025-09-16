@@ -5,6 +5,7 @@ using Work.DataContext;
 using Work.DataContext.Models;
 using WorkManagement.Common;
 using WorkManagement.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WorkManagement.Services.Admins
 {
@@ -14,6 +15,7 @@ namespace WorkManagement.Services.Admins
         Task<object> ResetPassword(ResetPassword form);
         Task<object> Managerment(string? key, int? userId, string? roleId, int? isSuperUser, int? isDisable, int? isActive, int offset, int limit);
         Task<object> GetByUserId(int idUser);
+        Task<object> AssignUserRole(AssignUserRoles form);
     }
     public class AccountServices : IAccountServices
     {
@@ -203,6 +205,31 @@ namespace WorkManagement.Services.Admins
         {
             var data = await _db.Users.Where(u => u.IdUser == idUser).FirstOrDefaultAsync();
             return Result<object>.Success(data);
+        }
+
+        public async Task<object> AssignUserRole(AssignUserRoles form)
+        {
+            if (string.IsNullOrEmpty(form.UserId) || form.RoleIds == null || !form.RoleIds.Any())
+                return Result<object>.Error("Thiếu UserId hoặc RoleIds");
+
+            var userExists = await _db.Users.AnyAsync(u => u.Id == form.UserId);
+            if (!userExists)
+                return Result<object>.Error("User không tồn tại");
+
+            var oldRoles = _db.UserRoles.Where(ur => ur.UserId == form.UserId);
+            _db.UserRoles.RemoveRange(oldRoles);
+
+            foreach (var roleId in form.RoleIds.Distinct())
+            {
+                _db.UserRoles.Add(new IdentityUserRole<string>
+                {
+                    UserId = form.UserId,
+                    RoleId = roleId
+                });
+            }
+
+            await _db.SaveChangesAsync();
+            return Result<object>.Success(null, 1, "Gán role cho user thành công");
         }
     }
 }

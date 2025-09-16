@@ -92,7 +92,7 @@ namespace WorkManagement.Common
                         goto IL_03d4;
                     }
 
-                    string currentController2 = (context.Controller as Controller).GetType().Name;
+                    string currentController2 = (context.Controller as Controller).GetType().Name.Replace("Controller", "");
                     KeyValuePair<string, long> keyValuePair2 = keyValuePair.Value.SingleOrDefault((KeyValuePair<string, long> c) => c.Key.Equals(currentController2, StringComparison.OrdinalIgnoreCase));
                     if (keyValuePair2.Equals(default(KeyValuePair<string, long>)))
                     {
@@ -127,7 +127,7 @@ namespace WorkManagement.Common
                         goto IL_03d4;
                     }
 
-                    string currentController = (context.Controller as Controller).GetType().Name;
+                    string currentController = (context.Controller as Controller).GetType().Name.Replace("Controller", "");
                     KeyValuePair<string, long> keyValuePair4 = keyValuePair3.Value.SingleOrDefault((KeyValuePair<string, long> c) => c.Key.Equals(currentController, StringComparison.OrdinalIgnoreCase));
                     if (keyValuePair4.Equals(default(KeyValuePair<string, long>)))
                     {

@@ -49,6 +49,20 @@ namespace WorkManagement.Controllers.Admins
             var data = await _AccountServices.GetByUserId(id);
             return Ok(data);
         }
+
+        [HttpPost("AssignRole")]
+        public async Task<IActionResult> AssignRole([FromBody] AssignUserRoles form)
+        {
+            try
+            {
+                var data = await _AccountServices.AssignUserRole(form);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { message = ex.Message });
+            }
+        }
     }
 }
 

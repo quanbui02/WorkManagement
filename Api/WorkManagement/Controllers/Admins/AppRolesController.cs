@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Work.DataContext;
 using WorkManagement.Common;
+using WorkManagement.Models;
 using WorkManagement.Services.Admins;
 
 namespace WorkManagement.Controllers.Admins
@@ -32,6 +33,20 @@ namespace WorkManagement.Controllers.Admins
                 return Ok(data);
             }
             catch (UnauthorizedAccessException ex)
+            {
+                return Ok(new { message = ex.Message });
+            }
+        }
+
+        [HttpPost("AssignRole")]
+        public async Task<IActionResult> AssignRole([FromBody] AssignRolePermissions form)
+        {
+            try
+            {
+                var data = await _AppRolesServices.AssignRolePermissions(form);
+                return Ok(data);
+            }
+            catch (Exception ex)
             {
                 return Ok(new { message = ex.Message });
             }

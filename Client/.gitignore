@@ -4,6 +4,7 @@
 # --- Angular environment files ---
 /environments/environment.ts
 /environments/environment.prod.ts
+/environments/environment.local.ts
 /environments/environment.*.ts
 
 # Compiled output

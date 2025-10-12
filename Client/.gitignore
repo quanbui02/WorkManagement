@@ -1,9 +1,11 @@
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
 # --- Angular environment files ---
-/src/environments/environment.ts
-/src/environments/environment.prod.ts
-/src/environments/environment.*.ts
+# --- Angular environment files ---
+Client/src/environments/environment.ts
+Client/src/environments/environment.prod.ts
+Client/src/environments/environment.*.ts
+!Client/src/environments/environment.template.ts
 
 # Compiled output
 /dist

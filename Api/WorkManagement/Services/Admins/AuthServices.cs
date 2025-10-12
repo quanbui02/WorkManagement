@@ -9,6 +9,7 @@ using Work.DataContext;
 using Work.DataContext.Models;
 using WorkManagement.Helper;
 using WorkManagement.Common;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace WorkManagement.Services.Admins
 {
@@ -26,8 +27,9 @@ namespace WorkManagement.Services.Admins
         private readonly WorkManagementContext _context;
         private readonly AppDbContext _db;
         private readonly SecurityKey _rsaKey;
+        private readonly ICachingHelper _cache;
 
-        public AuthServices(UserManager<AppUser> userManager,SignInManager<AppUser> signInManager,IConfiguration configuration, WorkManagementContext context, AppDbContext db, SecurityKey rsaKey)
+        public AuthServices(UserManager<AppUser> userManager,SignInManager<AppUser> signInManager,IConfiguration configuration, WorkManagementContext context, AppDbContext db, SecurityKey rsaKey, ICachingHelper cache)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -35,6 +37,7 @@ namespace WorkManagement.Services.Admins
             _context = context;
             _db = db;
             _rsaKey = rsaKey;
+            _cache = cache;
         }
 
         public async Task<(string token, DateTime expires)> Login(string username, string password)
@@ -54,32 +57,36 @@ namespace WorkManagement.Services.Admins
             var roles = await _userManager.GetRolesAsync(user);
             var userContext = await _context.Users.FirstOrDefaultAsync(u => u.UserIdGuid == user.Id);
 
-            var permissions = await (
-                from ur in _db.UserRoles
-                join rp in _db.RolePermission on ur.RoleId equals rp.RoleId
-                join ap in _db.AppPermission on rp.AppPermissionId equals ap.Id
-                join ac in _db.AppController on ap.AppControllerId equals ac.Id
-                where ur.UserId == user.Id
-                select new
-                {
-                    Service = "workmanagement",
-                    Controller = ap.Controller,
-                    Index = ap.Index
-                }
-            ).ToListAsync();
+            #region Lấy Role của user
+            //var permissions = await (
+            //    from ur in _db.UserRoles
+            //    join rp in _db.RolePermission on ur.RoleId equals rp.RoleId
+            //    join ap in _db.AppPermission on rp.AppPermissionId equals ap.Id
+            //    join ac in _db.AppController on ap.AppControllerId equals ac.Id
+            //    where ur.UserId == user.Id
+            //    select new
+            //    {
+            //        Service = "workmanagement",
+            //        Controller = ap.Controller,
+            //        Index = ap.Index
+            //    }
+            //).ToListAsync();
 
-            var permissionDict = new Dictionary<string, Dictionary<string, long>>();
+            //var permissionDict = new Dictionary<string, Dictionary<string, long>>();
 
-            foreach (var p in permissions)
-            {
-                if (!permissionDict.ContainsKey(p.Service))
-                    permissionDict[p.Service] = new Dictionary<string, long>();
+            //foreach (var p in permissions)
+            //{
+            //    if (!permissionDict.ContainsKey(p.Service))
+            //        permissionDict[p.Service] = new Dictionary<string, long>();
 
-                if (!permissionDict[p.Service].ContainsKey(p.Controller))
-                    permissionDict[p.Service][p.Controller] = 0;
+            //    if (!permissionDict[p.Service].ContainsKey(p.Controller))
+            //        permissionDict[p.Service][p.Controller] = 0;
 
-                permissionDict[p.Service][p.Controller] |= (long)(1L << p.Index);
-            }
+            //    permissionDict[p.Service][p.Controller] |= (1L << p.Index.Value);
+            //}
+            #endregion
+
+            var permissionDict = await GetPermissionsByUserAsync(user.Id);
 
             var claims = new List<Claim>
             {
@@ -113,6 +120,7 @@ namespace WorkManagement.Services.Admins
 
             //var privateKeyPath = Path.Combine(Directory.GetCurrentDirectory(), _configuration["Jwt:PrivateKeyPath"]);
             //var rsaKey = JwtKeyHelper.LoadPrivateKey(privateKeyPath);
+
             var creds = new SigningCredentials(_rsaKey, SecurityAlgorithms.RsaSha256);
 
             var expires = DateTime.UtcNow.AddHours(8);
@@ -127,6 +135,85 @@ namespace WorkManagement.Services.Admins
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
             return (tokenString, expires);
+        }
+
+        private async Task<Dictionary<string, Dictionary<string, long>>> GetPermissionsByUserAsync(string userId)
+        {
+            string cacheKey = $"permissions:{userId}";
+
+            if (_cache.IsSet(cacheKey))
+                return _cache.Get<Dictionary<string, Dictionary<string, long>>>(cacheKey);
+
+            var userRoles = await _db.UserRoles
+                .Where(x => x.UserId == userId)
+                .Select(x => x.RoleId)
+                .ToListAsync();
+
+            var mergedPermission = new Dictionary<string, Dictionary<string, long>>();
+
+            foreach (var roleId in userRoles)
+            {
+                string roleCacheKey = $"permissions:role:{roleId}";
+
+                Dictionary<string, Dictionary<string, long>> rolePerm = null;
+
+                if (_cache.IsSet(roleCacheKey))
+                {
+                    rolePerm = _cache.Get<Dictionary<string, Dictionary<string, long>>>(roleCacheKey);
+                }
+                else
+                {
+                    var rolePermissions = await (
+                        from rp in _db.RolePermission
+                        join ap in _db.AppPermission on rp.AppPermissionId equals ap.Id
+                        join ac in _db.AppController on ap.AppControllerId equals ac.Id
+                        where rp.RoleId == roleId
+                        select new { ap.Controller, ap.Index }
+                    ).ToListAsync();
+
+                    var roleDict = new Dictionary<string, Dictionary<string, long>>
+                    {
+                        ["workmanagement"] = new Dictionary<string, long>()
+                    };
+
+                    foreach (var p in rolePermissions)
+                    {
+                        if (!roleDict["workmanagement"].ContainsKey(p.Controller))
+                            roleDict["workmanagement"][p.Controller] = 0;
+
+                        if (p.Index.HasValue)
+                            roleDict["workmanagement"][p.Controller] |= (1L << p.Index.Value);
+                    }
+
+                    // Cache quyền theo role
+                    _cache.Set(roleCacheKey, roleDict, TimeSpan.FromHours(2));
+                    rolePerm = roleDict;
+                }
+
+                MergePermission(mergedPermission, rolePerm);
+            }
+
+            // Cache quyền tổng hợp theo user
+            _cache.Set(cacheKey, mergedPermission, TimeSpan.FromMinutes(30));
+
+            return mergedPermission;
+        }
+
+        private void MergePermission(Dictionary<string, Dictionary<string, long>> target,Dictionary<string, Dictionary<string, long>> source)
+        {
+            foreach (var service in source)
+            {
+                if (!target.ContainsKey(service.Key))
+                    target[service.Key] = new Dictionary<string, long>();
+
+                foreach (var ctrl in service.Value)
+                {
+                    if (!target[service.Key].ContainsKey(ctrl.Key))
+                        target[service.Key][ctrl.Key] = 0;
+
+                    target[service.Key][ctrl.Key] |= ctrl.Value;
+                }
+            }
         }
     }
 }

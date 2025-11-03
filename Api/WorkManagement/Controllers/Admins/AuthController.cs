@@ -16,7 +16,7 @@ namespace WorkManagement.Controllers.Admins
         {
             _AuthService = AuthService;
         }
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest model)
         {
             try

@@ -7,7 +7,7 @@ import { UserService } from '../services/user.service';
 import { AuthorizeService } from '../services/authorize.service';
 import { environment } from '../../../../environments/environment.local';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class GuardService implements CanActivate {
     constructor(
         private _authenService: OAuthService,

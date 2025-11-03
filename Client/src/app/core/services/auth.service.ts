@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
-import { environment } from '../../../../environments/environment.local';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -10,10 +10,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string) {
-    return this.http.post<any>(`${environment.apiDomain}/Admin/Login`, { username, password });
-  }
-
+login(username: string, password: string) {
+  return this.http.post<any>(
+    `${environment.apiDomain.workmanagementEndPoint}/Auth/Login`,
+    { username, password }
+  );
+}
   saveToken(token: string) {
     localStorage.setItem(this.TOKEN_KEY, token);
     const decoded: any = jwtDecode(token);

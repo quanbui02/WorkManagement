@@ -1,0 +1,95 @@
+// .login-page {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   background: url('/assets/images/background.jpg') no-repeat center center;
+//   height: 100vh;
+//   background-attachment: fixed;
+//   background-size: cover;
+// }
+
+// .login-card {
+//   border-radius: 1rem;
+//   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+//   max-width: 380px;
+//   backdrop-filter: blur(12px);
+//   background: linear-gradient(32deg, #8ccbff70 0%, rgba(140, 203, 255, 0) 100%);
+// }
+
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  background: url('/assets/images/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.login-card {
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  max-width: 380px;
+  backdrop-filter: blur(12px);
+  background: linear-gradient(32deg, #8ccbff70 0%, rgba(140, 203, 255, 0) 100%);
+  .form-group {
+    position: relative;
+    width: 100%;
+    margin-top: 1.5rem;
+
+    .form-input {
+      width: 100%;
+      padding: 12px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 0.5rem;
+      outline: none;
+      font-size: 15px;
+      color: #111827;
+
+      &:focus {
+        border-color: #3b82f6;
+      }
+
+      &::placeholder {
+        color: transparent;
+      }
+    }
+
+    .form-label {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      color: #6b7280;
+      font-size: 15px;
+      pointer-events: none;
+      background: white;
+      padding: 0 4px;
+      border-radius: 4px;
+      transition: 0.2s ease all;
+    }
+
+    .form-input:focus + .form-label,
+    .form-input:not(:placeholder-shown) + .form-label {
+      top: -8px;
+      left: 10px;
+      font-size: 12px;
+      color: #3b82f6;
+    }
+  }
+
+  .btn-login {
+    width: 100%;
+    background-color: #3b82f6;
+    color: white;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 1rem;
+
+    &:hover {
+      background-color: #2563eb;
+    }
+  }
+}

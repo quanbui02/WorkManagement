@@ -1,7 +1,12 @@
 @use 'variables' as *;
+* {
+  box-sizing: border-box;
+}
 body {
-    //font-family: 'Roboto Condensed';
+    font-family: 'Roboto', sans-serif;
     font-size: $vs-general-font-size;
+    margin:0;
+    padding:0;
 }
 
 body.landing-body {

@@ -23,7 +23,7 @@ namespace WorkManagement.Controllers.Admins
             _userInfo = userInfo;
         }
 
-        [HttpPost("sync")]
+        [HttpPost("Sync")]
         public async Task<IActionResult> SyncPermission()
         {
             try

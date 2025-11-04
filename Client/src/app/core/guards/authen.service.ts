@@ -4,7 +4,9 @@ import { HqCommonService } from '../services/hq-common.service';
 import { environment } from '../../../../environments/environment';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class HqAuthenService {
 
     constructor(

@@ -4,10 +4,12 @@ import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
+import { provideOAuthClient } from 'angular-oauth2-oidc';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     provideHttpClient(),
+    provideOAuthClient(),
   ]
 }).catch(err => console.error(err));

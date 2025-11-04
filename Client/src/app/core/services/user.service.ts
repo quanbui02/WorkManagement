@@ -13,7 +13,9 @@ import { HqCommonService } from './hq-common.service';
 import { HqAuthenService } from '../guards/authen.service';
 import { jwtDecode,JwtPayload } from 'jwt-decode';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService extends BaseService {
    readonly USER_INFO_KEY = 'user_info';
    readonly authenticationEndpoint = `${environment.apiDomain.authenticationEndpoint}/users`;

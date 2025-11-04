@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { AuthConfig } from 'angular-oauth2-oidc';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ConfigurationService {
     constructor() { }
     get maxFileSize(): number {

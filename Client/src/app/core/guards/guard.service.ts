@@ -7,7 +7,9 @@ import { UserService } from '../services/user.service';
 import { AuthorizeService } from '../services/authorize.service';
 import { environment } from '../../../../environments/environment.local';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class GuardService implements CanActivate {
     constructor(
         private _authenService: OAuthService,
@@ -27,6 +29,7 @@ export class GuardService implements CanActivate {
                 guard._authenService.clientId = this._authenStorage.getItem('clientId') || environment.authenticationSettings.clientId;
                 guard._authenService.loadDiscoveryDocumentAndTryLogin().then(rs => {
                     if (rs) {
+                        console.log(rs);
                         this._authorizeService.fetchAuthorization().then(e => {
                             if (this._userService.getBasicUserInfo().issuperuser) {
                                 resolve(true);

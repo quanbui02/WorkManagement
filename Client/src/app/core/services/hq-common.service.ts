@@ -3,14 +3,16 @@ import { DatePipe } from '@angular/common';
 import { ModuleConfigService } from './module-config.service';
 import { HqModuleConfig } from '../../shared/models/module-config';
 import { ConfigurationService } from './configuration.service';
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class HqCommonService {
-    config: HqModuleConfig;
+    //config: HqModuleConfig;
     constructor(
         private _moduleConfigService: ModuleConfigService,
         private _configurationService: ConfigurationService
     ) {
-        this.config = _moduleConfigService.getConfig();
+        //this.config = _moduleConfigService.getConfig();
     }
 
     checkYear(tuNgay: Date, denNgay: Date, year: number): boolean {

@@ -11,6 +11,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class AdminLoginComponent implements OnInit {
   form!: FormGroup;
+
   loading = false;
   errorMessage = '';
 
@@ -18,19 +19,24 @@ export class AdminLoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) {
+      this.form = this.fb.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required],
+  });
+  }
 
   ngOnInit() {
-    // ✅ Nếu đã đăng nhập thì redirect luôn
+    
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/admin']);
       return;
     }
 
-    this.form = this.fb.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]]
-    });
+    // this.form = this.fb.group({
+    //   username: ['', [Validators.required]],
+    //   password: ['', [Validators.required]]
+    // });
   }
 
   async onSubmit() {
@@ -43,10 +49,10 @@ export class AdminLoginComponent implements OnInit {
 
     this.authService.login(username, password).subscribe({
       next: (res) => {
-        console.log(res);
+        //console.log(res);
         
         if (res?.data?.token) {
-          this.authService.saveToken(res.data.token);
+          this.authService.saveToken(res.data.token, res.data.expires);
           this.router.navigate(['/admin']);
         } else {
           this.errorMessage = 'Không nhận được token từ máy chủ!';

@@ -2,26 +2,22 @@ import { Injectable, InjectionToken, Optional, Inject } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { ModuleConfig } from '../../shared/configs/module-config';
 
-
-export function moduleConfigFunc() {
-    return new InjectionToken<ModuleConfig>('');
-}
+// ✅ tạo token cố định, không phải function
+export const MODULE_CONFIG = new InjectionToken<ModuleConfig>('MODULE_CONFIG');
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ModuleConfigService {
-    protected _config: ModuleConfig;
+  //protected _config: ModuleConfig;
 
-    constructor(@Optional() @Inject(moduleConfigFunc) moduleConfigVal: any = null) {
-        // console.log('module config inject', moduleConfigVal());
-        this._config = moduleConfigVal() ||
-            <ModuleConfig>{
-                ApiFileUpload: `${environment.apiDomain.fileEndpoint}/upload`
-            };
-    }
+//   constructor(@Optional() @Inject(MODULE_CONFIG) private moduleConfigVal: ModuleConfig | null) {
+//     this._config = moduleConfigVal || {
+//       ApiFileUpload: `${environment.apiDomain.fileEndpoint}/upload`
+//     };
+//   }
 
-    getConfig() {
-        return this._config;
-    }
+//   getConfig() {
+//     return this._config;
+//   }
 }

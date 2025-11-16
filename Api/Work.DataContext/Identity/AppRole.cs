@@ -17,6 +17,6 @@ namespace Work.DataContext
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public ICollection<RolePermission> RolePermissions { get; set; }
-
+        public ICollection<AppGrantedPermissions> AppGrantedPermissions { get; set; }
     }
 }

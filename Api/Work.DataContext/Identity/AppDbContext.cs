@@ -17,5 +17,6 @@ namespace Work.DataContext
         public DbSet<AppPermission> AppPermission { get; set; }
         public DbSet<AppController> AppController { get; set; }
         public DbSet<RolePermission> RolePermission { get; set; }
+        public DbSet<AppGrantedPermissions> AppGrantedPermissions { get; set; }
     }
 }

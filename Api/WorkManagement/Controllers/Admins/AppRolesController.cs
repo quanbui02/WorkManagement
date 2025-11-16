@@ -51,5 +51,47 @@ namespace WorkManagement.Controllers.Admins
                 return Ok(new { message = ex.Message });
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetRoles(string key, int offset, int limit)
+        {
+            try
+            {
+                var data = await _AppRolesServices.GetRoles(key, offset, limit);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { message = ex.Message });
+            }
+        }
+
+        [HttpGet("GetDetail/{id}")]
+        public async Task<IActionResult> GetDetail(string id)
+        {
+            try
+            {
+                var data = await _AppRolesServices.GetDetail(id);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { message = ex.Message });
+            }
+        }
+
+        [HttpDelete("Remove/{id}")]
+        public async Task<IActionResult> Remove(string id)
+        {
+            try
+            {
+                var data = await _AppRolesServices.Remove(id);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { message = ex.Message });
+            }
+        }
     }
 }

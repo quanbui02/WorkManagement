@@ -1,8 +1,12 @@
-﻿using System.Net.WebSockets;
+﻿using System.Data;
+using System.Net.WebSockets;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Work.API.Common;
 using Work.DataContext;
 using Work.DataContext.Identity;
+using Work.DataContext.Migrations;
+using Work.DataContext.Models;
 using WorkManagement.Common;
 using WorkManagement.Models;
 
@@ -12,6 +16,9 @@ namespace WorkManagement.Services.Admins
     {
         Task<IResult<AppRole>> Save(AppRole form);
         Task<object> AssignRolePermissions(AssignRolePermissions form);
+        Task<object> GetRoles(string key, int offset, int limit);
+        Task<object> Remove(string id);
+        Task<object> GetDetail(string id);
     }
     public class AppRolesServices : IAppRolesServices
     {
@@ -78,16 +85,18 @@ namespace WorkManagement.Services.Admins
 
         public async Task<object> AssignRolePermissions(AssignRolePermissions form)
         {
+            if (string.IsNullOrEmpty(form.RoleId))
+                return Result<object>.Error("Thiếu RoleId");
 
-            if (string.IsNullOrEmpty(form.RoleId) || form.PermissionIds == null || !form.PermissionIds.Any())
-                return Result<object>.Error("Thiếu RoleId hoặc danh sách PermissionIds");
+            if (form.PermissionIds == null)
+                return Result<object>.Error("Danh sách PermissionIds bị null");
 
             var roleExists = await _db.Roles.AnyAsync(r => r.Id == form.RoleId);
             if (!roleExists)
                 return Result<object>.Error("Không tìm thấy Role");
 
-            var oldPermissions = _db.RolePermission.Where(rp => rp.RoleId == form.RoleId);
-            _db.RolePermission.RemoveRange(oldPermissions);
+            var oldRolePermissions = _db.RolePermission.Where(rp => rp.RoleId == form.RoleId);
+            _db.RolePermission.RemoveRange(oldRolePermissions);
 
             foreach (var permissionId in form.PermissionIds.Distinct())
             {
@@ -98,9 +107,84 @@ namespace WorkManagement.Services.Admins
                 });
             }
 
+            var oldGranted = _db.AppGrantedPermissions.Where(x => x.RoleId == form.RoleId);
+            _db.AppGrantedPermissions.RemoveRange(oldGranted);
+
+            var permissions = await _db.AppPermission
+                .Where(p => form.PermissionIds.Contains(p.Id))
+                .ToListAsync();
+
+            var grouped = permissions.GroupBy(p => p.AppControllerId);
+
+            foreach (var group in grouped)
+            {
+                int mask = 0;
+
+                foreach (var p in group)
+                {
+                    mask |= (int)(1 << p.Index); // bitmask từ index
+                }
+
+                _db.AppGrantedPermissions.Add(new AppGrantedPermissions
+                {
+                    RoleId = form.RoleId,
+                    AppControllerId = group.Key,
+                    PermissionValue = mask,
+                    CreatedUserId = _userInfo.UserId,
+                    LastModifyUserId = _userInfo.UserId,
+                    LastModifyDate = DateTime.Now
+                });
+            }
+
             await _db.SaveChangesAsync();
 
             return Result<object>.Success(null, 1, "Gán quyền cho role thành công");
+        }
+
+        public async Task<object> GetRoles(string key, int offset, int limit)
+        {
+            var roles = from s in _db.Roles
+                        where s.IsDeleted != true && s.IsActive == true
+                        select new
+                        {
+                            s.Id,
+                            s.Name,
+                            s.Code,
+                            s.IsActive,
+                            s.IsDeleted
+                        };
+
+            if (!string.IsNullOrEmpty(key))
+            {
+                roles = roles.Where(x => x.Name.ToLower().Contains(key.ToLower()));
+            }
+
+            var re = await roles.Skip(offset).Take(limit).ToListAsync();
+            return Result<object>.Success(re, await roles.CountAsync());
+
+        }
+    
+        public async Task<object> Remove(string id)
+        {
+            var role = await _db.Roles.Where(r => r.Id == id).FirstOrDefaultAsync();
+
+            role.IsDeleted = true;
+            role.IsActive = false;
+
+            await _db.SaveChangesAsync();
+            return Result<object>.Success(-1, -1, "Xoá thành công!");
+        }
+
+        public async Task<object> GetDetail(string id)
+        {
+            var crrRole = await _db.Roles.Where(s => s.Id == id).Select(s => new
+            {
+                s.Id,
+                s.Name,
+                s.Code,
+            }).FirstOrDefaultAsync();
+
+            return Result<object>.Success(crrRole, 1);
         }
     }
 }

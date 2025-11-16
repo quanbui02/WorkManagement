@@ -17,6 +17,7 @@ namespace Work.DataContext.Identity
         public int? ServiceId { get; set; }
         public string GroupName { get; set; }
         public ICollection<AppPermission> AppPermission { get; set; }
+        public ICollection<AppGrantedPermissions> AppGrantedPermissions { get; set; }
     }
 }
                                                       

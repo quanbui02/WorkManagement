@@ -20,6 +20,7 @@ namespace WorkManagement
             services.AddScoped<IWmUsersService, WmUsersService>();
             services.AddScoped<IAccountServices, AccountServices>();
             services.AddScoped<IAppPermissionsService,  AppPermissionsService>();
+            services.AddScoped<IHtMenuServices, HtMenuServices>();
             #endregion Dependency Injection
         }
 

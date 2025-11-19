@@ -2,7 +2,7 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'; // add this
 import { providePrimeNG } from 'primeng/config'; // add this
-import Aura from '@primeng/themes/aura'; // add this
+import Aura from '@primeuix/themes/aura'; // add this
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
@@ -17,7 +17,14 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
       theme: {
         preset: Aura,
-      },
+          options: {
+            darkModeSelector: false || 'none', //'.my-app-dark', sau này tuỳ chỉnh darkmode ở đây
+            cssLayer: {
+            name: 'primeng',
+            order: 'app-styles, primeng, another-css-library'
+            }
+          }
+        },
     }),
   ]
 };

@@ -15,4 +15,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
+  toggleDarkMode() {
+    const element = document.querySelector('html');
+    element?.classList.toggle('my-app-dark');
+}
+
 }

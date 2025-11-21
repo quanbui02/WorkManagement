@@ -21,7 +21,7 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: Aura,
           options: {
-            darkModeSelector: false || 'none', //'.my-app-dark', sau này tuỳ chỉnh darkmode ở đây
+            darkModeSelector: false || 'none', //'.my-app-dark', sau này tuỳ chỉnh darkmode ở đây ...
             cssLayer: {
             name: 'primeng',
             order: 'app-styles, primeng, another-css-library'

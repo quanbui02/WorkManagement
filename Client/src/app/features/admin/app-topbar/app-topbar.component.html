@@ -1,0 +1,54 @@
+<div class="topbar clearfix">
+    <div class="topbar-left">
+        <div class="topbar-logo-wrapper">
+            <a href="/" (click)="app.onSwitchModule(1)"><img src="{{environment.appMetadata.appDomain.logo}}" class="topbar-logo" /></a>
+        </div>
+
+    </div>
+
+    <div class="topbar-right">
+        <a id="menu-button" href="#" (click)="app.onMenuButtonClick($event)" [ngClass]="{'menu-button-rotate': app.rotateMenuButton}">
+            <i class="pi pi-chevron-left"></i>
+        </a>
+
+        <a id="topbar-menu-button" href="#" (click)="app.onTopbarMenuButtonClick($event)">
+            <i class="pi pi-bars"></i>
+        </a>
+
+        <ul class="topbar-items fadeInDown" [ngClass]="{'topbar-items-visible': _commonService.topbarMenuActive}">
+            <li #profile class="profile-item" *ngIf="app.profileMode==='top'||_commonService.isHorizontal()" [ngClass]="{'active-top-menu':_commonService.activeTopbarItem === profile}">
+
+                <a href="#" (click)="_commonService.onTopbarItemClick($event,profile)" class="profile-item-inner">
+                    <div class="profile-image-wrapper">
+                        <img class="profile-image" src="{{avatarUrl}}" pTooltip="Thông tin cá nhân" tooltipPosition="bottom" />
+                    </div>
+                    <div class="profile-info-wrapper">
+                        <div class="topbar-item-name-wrapper"><span class="topbar-item-name">{{crrUser?.displayName}}</span>
+                        </div>
+                    </div>
+                </a>
+
+                <ul class="layout-menu fadeInDown">
+                    <li role="menuitem">
+                        <a href="#">
+                            <i class="fas fa-fw fa-user-edit"></i>
+                            <span>Thông tin cá nhân</span>
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a href="#">
+                            <i class="fa fa-fw fa-key"></i>
+                            <span>Đổi mật khẩu</span>
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a href="javascript:;">
+                            <i class="fa fa-fw fa-sign-out"></i>
+                            <span>Đăng xuất</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

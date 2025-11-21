@@ -42,6 +42,7 @@ saveToken(token: string, expires?: string) {
     issuperuser: decoded.issuperuser,
     permissions: decoded.permissions,
     userid: decoded.userId || decoded.userid,
+    avatar: decoded.avatar,
   }));
   localStorage.setItem('is_authenticated', 'true');
 
@@ -72,6 +73,7 @@ saveToken(token: string, expires?: string) {
 
   logout() {
     localStorage.clear();
+    sessionStorage.clear();
     window.location.href = '/login';
   }
 

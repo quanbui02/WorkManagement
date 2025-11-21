@@ -164,7 +164,8 @@ export class UserService extends BaseService {
 
    async getCurrentUser(): Promise<User> {
       const crrUser = new User();
-      const accessToken = this._oauthService.getAccessToken();
+      const accessToken = localStorage.getItem('access_token');
+      //const accessToken = this._oauthService.getAccessToken();
       if (accessToken) {
          const claims = jwtDecode<any>(accessToken);
          if (claims) {

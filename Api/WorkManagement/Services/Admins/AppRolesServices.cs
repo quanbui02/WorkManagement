@@ -14,7 +14,7 @@ namespace WorkManagement.Services.Admins
 {
     public interface IAppRolesServices
     {
-        Task<IResult<AppRole>> Save(AppRole form);
+        Task<IResult<AppRole>> Save(AppRoleRequest form);
         Task<object> AssignRolePermissions(AssignRolePermissions form);
         Task<object> GetRoles(string key, int offset, int limit);
         Task<object> Remove(string id);
@@ -35,7 +35,7 @@ namespace WorkManagement.Services.Admins
             _db = db;
         }
 
-        public async Task<IResult<AppRole>> Save(AppRole form)
+        public async Task<IResult<AppRole>> Save(AppRoleRequest form)
         {
             AppRole obj;
             if (!string.IsNullOrEmpty(form.Id))

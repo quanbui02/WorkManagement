@@ -25,7 +25,7 @@ namespace WorkManagement.Controllers.Admins
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save([FromBody] AppRole form)
+        public async Task<IActionResult> Save([FromBody] AppRoleRequest form)
         {
             try
             {

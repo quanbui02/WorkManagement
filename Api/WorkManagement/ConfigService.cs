@@ -1,6 +1,7 @@
 ﻿using WorkManagement.Common;
 using WorkManagement.Extensions;
 using WorkManagement.Helper;
+using WorkManagement.Services;
 using WorkManagement.Services.Admins;
 using WorkManagement.Services.Clients;
 namespace WorkManagement
@@ -21,6 +22,7 @@ namespace WorkManagement
             services.AddScoped<IAccountServices, AccountServices>();
             services.AddScoped<IAppPermissionsService,  AppPermissionsService>();
             services.AddScoped<IHtMenuServices, HtMenuServices>();
+            services.AddScoped<IUsersService, UsersService>();
             #endregion Dependency Injection
         }
 

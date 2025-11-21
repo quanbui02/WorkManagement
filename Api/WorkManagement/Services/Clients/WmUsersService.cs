@@ -13,9 +13,10 @@ namespace WorkManagement.Services.Clients
 
     public class WmUsersService : BaseService<Users, WorkManagementContext>, IWmUsersService
     {
-
+        private readonly IUserInfo _userInfo;
         public WmUsersService(WorkManagementContext db, ICachingHelper cachingHelper, IUserInfo user) : base(db, cachingHelper, user)
         {
+            _userInfo = user;
         }
 
         public async Task<object> GetDetail(int id)

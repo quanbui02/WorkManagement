@@ -1,37 +1,23 @@
-# =========================
-# 1. Build stage
-# =========================
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+# ===== Runtime Image (.NET 9) =====
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+WORKDIR /app
+EXPOSE 5000
 
-WORKDIR /src
+# Set timezone Asia/Ho_Chi_Minh
+RUN ln -fs /usr/share/zoneinfo/Asia/Ho_Chi_Minh /etc/localtime \
+    && dpkg-reconfigure -f noninteractive tzdata
 
-# Copy solution
-COPY ../../../WorkManagement.sln .
+ENV ASPNETCORE_ENVIRONMENT=Production
+ENV ASPNETCORE_URLS=http://+:5000
 
-# Copy csproj của từng project
-COPY ../WorkManagement/WorkManagement.csproj Api/WorkManagement/
-COPY ../Work.DataContext/Work.DataContext.csproj Api/Work.DataContext/
-
-# Restore packages
-RUN dotnet restore WorkManagement.sln
-
-# Copy toàn bộ source code của project
-COPY ../../../ .
-
-# Publish
-RUN dotnet publish Api/WorkManagement/WorkManagement.csproj -c Release -o /app/publish
-
-
-# =========================
-# 2. Runtime stage
-# =========================
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
-
+# ===== Final Stage =====
+FROM base AS final
 WORKDIR /app
 
-COPY --from=build /app/publish .
+# Copy published output
+COPY ./bin/Release/PublishOutput /app
 
-EXPOSE 5000
-ENV ASPNETCORE_URLS=http://+:5000
+# Copy jwt keys
+COPY ./Jwtkeys /app/jwtkeys
 
 ENTRYPOINT ["dotnet", "WorkManagement.dll"]

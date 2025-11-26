@@ -1,46 +1,17 @@
 @echo off
-setlocal
+echo ====== PUBLISH .NET API ======
+dotnet publish -c Release -o bin/Release/PublishOutput
 
-echo =====================================
-echo   LOGIN TO GITHUB CONTAINER REGISTRY
-echo =====================================
+echo ====== DOCKER BUILD ======
+docker build -f Dockerfile -t ghcr.io/quanbui02/workmanagement-api:1.0 .
 
+echo ====== DOCKER LOGIN GHCR ======
 echo %GHCR_PAT% | docker login ghcr.io -u quanbui02 --password-stdin
 
-if %errorlevel% neq 0 (
-    echo ERROR: LOGIN FAILED !
-    pause
-    exit /b
-)
+echo ====== DOCKER PUSH ======
+docker push ghcr.io/quanbui02/workmanagement-api:1.0
 
-echo =====================================
-echo   BUILDING DOCKER IMAGE work-api
-echo =====================================
-
-docker build -t ghcr.io/quanbui02/work-api:latest .
-
-if %errorlevel% neq 0 (
-    echo ERROR: DOCKER BUILD FAILED !
-    pause
-    exit /b
-)
-
-echo =====================================
-echo   PUSHING IMAGE TO GHCR
-echo =====================================
-
-docker push ghcr.io/quanbui02/work-api:latest
-
-if %errorlevel% neq 0 (
-    echo ERROR: DOCKER PUSH FAILED !
-    pause
-    exit /b
-)
-
-echo =====================================
-echo   TRIGGERING DEPLOY WEBHOOK
-echo =====================================
-
+echo ====== CALL DEPLOY WEBHOOK ======
 curl -X POST http://15.134.201.47:9000/hooks/deploy-api
 
 pause

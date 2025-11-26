@@ -42,5 +42,12 @@ namespace WorkManagement.Controllers.Clients
         {
             return Ok("Ok2");
         }
+
+        [HttpGet("TestSynPermisstion3")]
+        [PermissionDefinition("TestSynPermisstion3 - Cập Nhật Method trong Controller", 8)]
+        public async Task<IActionResult> TestSynPermisstion3()
+        {
+            return Ok("Ok3");
+        }
     }
 }

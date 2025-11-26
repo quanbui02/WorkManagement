@@ -6,19 +6,19 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
 # Copy solution
-COPY ../../../WorkManagement.sln .
+COPY ../../WorkManagement.sln .
 
-# Copy csproj của từng project
-COPY ../WorkManagement/WorkManagement.csproj Api/WorkManagement/
+# Copy từng project csproj
+COPY WorkManagement.csproj Api/WorkManagement/
 COPY ../Work.DataContext/Work.DataContext.csproj Api/Work.DataContext/
 
 # Restore packages
 RUN dotnet restore WorkManagement.sln
 
-# Copy toàn bộ source code của project
-COPY ../../../ .
+# Copy toàn bộ solution
+COPY ../../ .
 
-# Publish
+# Publish API
 RUN dotnet publish Api/WorkManagement/WorkManagement.csproj -c Release -o /app/publish
 
 

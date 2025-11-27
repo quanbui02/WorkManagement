@@ -4,7 +4,7 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy dist vào Nginx web root
-COPY ./dist/workmanagement-client /usr/share/nginx/html
+COPY ./dist/browser /usr/share/nginx/html
 
 # Expose port
 EXPOSE 80

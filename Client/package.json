@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "deploy": "ng build --configuration=production && docker build -f Dockerfile -t ghcr.io/quanbui02/workmanagement-client:1.0 . && docker push ghcr.io/quanbui02/workmanagement-client:1.0 && curl -X POST http://15.134.201.47:9000/hooks/deploy-fe",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

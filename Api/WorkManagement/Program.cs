@@ -19,9 +19,10 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins(
                 "http://localhost:4200",
-                "http://15.134.201.47",
+                "http://15.134.201.47:8080",
                 "http://15.134.201.47:80",
                 "http://15.134.201.47:5000",
+                "http://15.134.201.47",
                 "https://15.134.201.47"
             )
             .AllowAnyHeader()
@@ -29,6 +30,7 @@ builder.Services.AddCors(options =>
             .AllowCredentials();
     });
 });
+
 
 
 // Add services to the container.

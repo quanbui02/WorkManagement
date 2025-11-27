@@ -21,11 +21,7 @@ saveToken(token: string, expires?: string) {
   const decoded: any = jwtDecode(token);
   const now = new Date();
 
-  const expiresAt = expires
-    ? new Date(expires).getTime()
-    : decoded.exp
-      ? decoded.exp * 1000
-      : now.getTime() + 3600 * 1000;
+  const expiresAt = expires ? new Date(expires).getTime() : decoded.exp ? decoded.exp * 1000 : now.getTime() + 3600 * 1000;
 
   localStorage.setItem('access_token', token);
   localStorage.setItem('access_token_stored_at', now.getTime().toString());
@@ -35,7 +31,7 @@ saveToken(token: string, expires?: string) {
   localStorage.setItem('id_token_expires_at', expiresAt.toString());
   localStorage.setItem('id_token_claims_obj', JSON.stringify(decoded));
   localStorage.setItem('nonce', btoa(Math.random().toString()));
-  localStorage.setItem('session_state', crypto.randomUUID());
+  localStorage.setItem('session_state', this.generateUUID());
   localStorage.setItem('user_info', JSON.stringify({
     displayName: decoded.fullname || decoded.username,
     email: decoded.email,

@@ -46,7 +46,7 @@ saveToken(token: string, expires?: string) {
   }));
   localStorage.setItem('is_authenticated', 'true');
 
-  const sessionKey = crypto.randomUUID();
+  const sessionKey = this.generateUUID();
   sessionStorage.setItem('log_session_key', sessionKey);
 
   const sessionPermissions = {
@@ -93,4 +93,12 @@ saveToken(token: string, expires?: string) {
       return false;
     }
   }
+
+  generateUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
 }

@@ -17,12 +17,19 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngularDev", policy =>
     {
         policy
-            .WithOrigins("http://localhost:4200")
+            .WithOrigins(
+                "http://localhost:4200",
+                "http://15.134.201.47",
+                "http://15.134.201.47:80",
+                "http://15.134.201.47:5000",
+                "https://15.134.201.47"
+            )
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
     });
 });
+
 
 // Add services to the container.
 

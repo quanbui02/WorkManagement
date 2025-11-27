@@ -1,5 +1,5 @@
 import { Injectable, InjectionToken, Optional, Inject } from '@angular/core';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { ModuleConfig } from '../../shared/configs/module-config';
 
 // ✅ tạo token cố định, không phải function

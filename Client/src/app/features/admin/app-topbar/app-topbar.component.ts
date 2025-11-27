@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { environment } from '../../../../../environments/environment';
+
 import { Observable, Subject, Subscription } from 'rxjs';
 import { User } from '../../../core/models/user';
 import { VsMySetting } from '../../../core/models/ccmysetting';
@@ -14,6 +14,7 @@ import { AppComponent } from '../../../app.component';
 import { CommonService } from '../../../core/services/common.service';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from '../admin.component';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-topbar',

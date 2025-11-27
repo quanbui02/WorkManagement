@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OAuthService, OAuthStorage } from 'angular-oauth2-oidc';
 import { HqCommonService } from '../services/hq-common.service';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable({

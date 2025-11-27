@@ -8,7 +8,7 @@ import { ResponseResult, ResponsePagination } from '../models/response-result';
 import { User } from '../models/user';
 import { BaseService } from './base.service';
 import * as moment from 'moment';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { HqCommonService } from './hq-common.service';
 import { HqAuthenService } from '../guards/authen.service';
 import { jwtDecode,JwtPayload } from 'jwt-decode';

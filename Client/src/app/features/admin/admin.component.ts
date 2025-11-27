@@ -3,7 +3,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { AppTopbarComponent } from './app-topbar/app-topbar.component';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { CommonService } from '../../core/services/common.service';
 import { GlobalService } from '../../core/services/global.service';
 enum MenuOrientation {

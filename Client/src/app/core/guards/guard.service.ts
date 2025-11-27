@@ -5,7 +5,7 @@ import { PermissionTypes } from '../constants';
 import { ConfigurationService } from '../services/configuration.service';
 import { UserService } from '../services/user.service';
 import { AuthorizeService } from '../services/authorize.service';
-import { environment } from '../../../../environments/environment.local';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

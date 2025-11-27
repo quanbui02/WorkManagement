@@ -1,10 +1,13 @@
-FROM node:18 AS build
-WORKDIR /app
-COPY . .
-RUN npm install
-RUN npm run build --prod
-
 FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
 
+# Xóa file default của Nginx
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy dist vào Nginx web root
+COPY ./dist/workmanagement-client /usr/share/nginx/html
+
+# Expose port
 EXPOSE 80
+
+# Chạy Nginx
+CMD ["nginx", "-g", "daemon off;"]

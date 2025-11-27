@@ -1,0 +1,15 @@
+.idea
+.sass-cache
+.vscode
+e2e
+node_modules
+projects
+src
+angular.json
+tsconfig.json
+tsconfig.app.json
+tsconfig.spec.json
+karma.conf.js
+package-lock.json
+package.json
+README.md

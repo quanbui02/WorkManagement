@@ -14,7 +14,7 @@ export const environment = {
         authorizationEndpoint: 'https://fa.friends.vn/authorization.api',
         fileEndpoint: 'https://faapi.friends.vn/file.api',
         notificationEndpoint: 'https://notification.faapi.friends.vn',
-        workmanagementEndPoint: 'https://wmdev.id.vn',
+        workmanagementEndPoint: 'https://wmdev.id.vn/api',
         dapEInvoiceEndPoint: 'https://localhost:44319',
         logEndPoint: 'https://logs.mypha.vn',
         documentServer: 'https://documentserver.friends.vn',

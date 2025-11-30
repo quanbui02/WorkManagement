@@ -82,36 +82,6 @@
         text-decoration: none;
     }
 
-    .topbar-right {
-        display: flex;
-        gap: 16px;
-        #menu-button,
-        #topbar-menu-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.1);
-            cursor: pointer;
-            transition: all 0.25s ease;
-
-            i {
-                font-size: 1.1rem;
-            }
-        }
-
-        #menu-button:hover,
-        #topbar-menu-button:hover {
-            background: rgba(255,255,255,0.25);
-            transform: scale(1.08);
-        }
-
-        .menu-button-rotate {
-            transform: rotate(180deg);
-        }
-    }
 }
 
         .topbar-items {
@@ -187,7 +157,7 @@
                     }
                 }
             }
-        }
+    }
 
 @keyframes dropdownFadeIn {
     from {

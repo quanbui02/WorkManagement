@@ -17,19 +17,19 @@ export const appConfig: ApplicationConfig = {
     ),
     provideOAuthClient(),
     provideAnimationsAsync(),
-    // providePrimeNG({
-    //   theme: {
-    //     preset: Aura,
-    //       options: {
-    //         darkModeSelector: false || 'none', //'.my-app-dark', sau này tuỳ chỉnh darkmode ở đây ...
-    //         cssLayer: {
-    //         name: 'primeng',
-    //         order: 'app-styles, primeng, another-css-library'
-    //         }
-    //       }
-    //     },
-    // }),
-     providePrimeNG({ theme: { preset: Aura, options: { darkModeSelector: '.app-dark' } } })
+    providePrimeNG({
+      theme: {
+        preset: Aura,
+          options: {
+            darkModeSelector: false || 'none', //'.my-app-dark', sau này tuỳ chỉnh darkmode ở đây ...
+            cssLayer: {
+            name: 'primeng',
+            order: 'app-styles, primeng, another-css-library'
+            }
+          }
+        },
+    }),
+     //providePrimeNG({ theme: { preset: Aura, options: { darkModeSelector: '.app-dark' } } })
   ]
 };
 

@@ -71,15 +71,10 @@
 }
 
 .topbar {
-    height: 64px;
-    padding: 0 20px;
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    position: relative;
-    z-index: 100;
     box-shadow: 0 1px 4px rgba(0,0,0,0.12);
     background: #0084ff;
     a {
@@ -88,13 +83,7 @@
     }
 
     .topbar-left {
-        display: flex;
-        align-items: center;
-
         .topbar-logo-wrapper {
-            display: flex;
-            align-items: center;
-
             .topbar-logo {
                 height: 42px;
                 cursor: pointer;
@@ -110,9 +99,7 @@
 
     .topbar-right {
         display: flex;
-        align-items: center;
         gap: 16px;
-
         #menu-button,
         #topbar-menu-button {
             display: flex;

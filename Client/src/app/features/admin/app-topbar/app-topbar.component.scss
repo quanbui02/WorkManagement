@@ -82,21 +82,6 @@
         text-decoration: none;
     }
 
-    .topbar-left {
-        .topbar-logo-wrapper {
-            .topbar-logo {
-                height: 42px;
-                cursor: pointer;
-                object-fit: contain;
-                transition: transform 0.25s ease;
-            }
-
-            .topbar-logo:hover {
-                transform: scale(1.05);
-            }
-        }
-    }
-
     .topbar-right {
         display: flex;
         gap: 16px;
@@ -126,6 +111,8 @@
         .menu-button-rotate {
             transform: rotate(180deg);
         }
+    }
+}
 
         .topbar-items {
             position: relative;
@@ -166,7 +153,6 @@
                 .topbar-item-name {
                     font-weight: 600;
                     font-size: 0.95rem;
-                    color: #fff;
                 }
 
                 .layout-menu {
@@ -202,8 +188,6 @@
                 }
             }
         }
-    }
-}
 
 @keyframes dropdownFadeIn {
     from {

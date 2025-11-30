@@ -1,19 +1,18 @@
-<div class="topbar clearfix">
-    <div class="topbar-left">
+<div class="layout-topbar">
+    <div class="layout-topbar-logo-container">
         <div class="topbar-logo-wrapper">
             <a href="/" (click)="app.onSwitchModule(1)"><img src="{{environment.appMetadata.appDomain.logo}}" class="topbar-logo" /></a>
         </div>
-
     </div>
 
-    <div class="topbar-right">
-        <a id="menu-button" href="#" (click)="app.onMenuButtonClick($event)" [ngClass]="{'menu-button-rotate': app.rotateMenuButton}">
+    <div class="layout-topbar-actions">
+        <!-- <a id="menu-button" href="#" (click)="app.onMenuButtonClick($event)" [ngClass]="{'menu-button-rotate': app.rotateMenuButton}">
             <i class="pi pi-chevron-left"></i>
         </a>
 
         <a id="topbar-menu-button" href="#" (click)="app.onTopbarMenuButtonClick($event)">
             <i class="pi pi-bars"></i>
-        </a>
+        </a> -->
 
         <ul class="topbar-items fadeInDown" [ngClass]="{'topbar-items-visible': _commonService.topbarMenuActive}">
             <li #profile class="profile-item" *ngIf="app.profileMode==='top'||_commonService.isHorizontal()" [ngClass]="{'active-top-menu':_commonService.activeTopbarItem === profile}">

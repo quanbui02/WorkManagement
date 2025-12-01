@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, OnDestroy, OnInit, Output } from '@angular/core';
 
 import { Observable, Subject, Subscription } from 'rxjs';
 import { User } from '../../../core/models/user';
@@ -30,7 +30,7 @@ export class AppTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
     _sub?: Subscription;
     currentRoute = '';
     fileApi = '';
-
+    isShowMenu: boolean = false;
     position = '';
     avatarUrl = '';
     crrUser?: User;
@@ -77,6 +77,25 @@ export class AppTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     ngOnDestroy(): void {
       //throw new Error('Method not implemented.');
+    }
+
+    logOut() {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = '/login';
+    }
+
+    showMenu(event: Event) {
+      //event.preventDefault();
+      this.isShowMenu = !this.isShowMenu;
+    }
+
+    @HostListener('document:click', ['$event'])
+    onClickOutside(event: Event) {
+        const target = event.target as HTMLElement;
+        if (!target.closest('.my-menu')) {
+            this.isShowMenu = false;
+        }
     }
 
 }

@@ -8,16 +8,17 @@
     <div class="layout-topbar-actions">
         <!-- <a id="menu-button" href="#" (click)="app.onMenuButtonClick($event)" [ngClass]="{'menu-button-rotate': app.rotateMenuButton}">
             <i class="pi pi-chevron-left"></i>
-        </a>
-
-        <a id="topbar-menu-button" href="#" (click)="app.onTopbarMenuButtonClick($event)">
-            <i class="pi pi-bars"></i>
         </a> -->
 
-        <ul class="topbar-items fadeInDown" [ngClass]="{'topbar-items-visible': _commonService.topbarMenuActive}">
-            <li #profile class="profile-item" *ngIf="app.profileMode==='top'||_commonService.isHorizontal()" [ngClass]="{'active-top-menu':_commonService.activeTopbarItem === profile}">
+        <!-- <a id="topbar-menu-button" href="#" (click)="app.onTopbarMenuButtonClick($event)">
+            <i class="pi pi-bars"></i>
+        </a>  -->
 
-                <a href="#" (click)="_commonService.onTopbarItemClick($event,profile)" class="profile-item-inner">
+        <ul class="topbar-items fadeInDown" [ngClass]="{'topbar-items-visible': _commonService.topbarMenuActive}">
+            <li #profile class="profile-item my-menu" *ngIf="app.profileMode==='top'||_commonService.isHorizontal()" [ngClass]="{'active-top-menu':_commonService.activeTopbarItem === profile}">
+
+                <!-- <a href="#" (click)="_commonService.onTopbarItemClick($event,profile)" class="profile-item-inner"> -->
+                <a (click)="showMenu($event)" class="profile-item-inner">
                     <div class="profile-image-wrapper">
                         <img class="profile-image" src="{{avatarUrl}}" pTooltip="Thông tin cá nhân" tooltipPosition="bottom" />
                     </div>
@@ -27,7 +28,7 @@
                     </div>
                 </a>
 
-                <ul class="layout-menu fadeInDown">
+                <ul *ngIf="isShowMenu" class="layout-menu fadeInDown">
                     <li role="menuitem">
                         <a href="#">
                             <i class="fas fa-fw fa-user-edit"></i>
@@ -40,7 +41,7 @@
                             <span>Đổi mật khẩu</span>
                         </a>
                     </li>
-                    <li role="menuitem">
+                    <li role="menuitem" (click)="logOut()">
                         <a href="javascript:;">
                             <i class="fa fa-fw fa-sign-out"></i>
                             <span>Đăng xuất</span>

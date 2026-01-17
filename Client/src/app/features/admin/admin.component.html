@@ -1,5 +1,21 @@
     <div class="layout-wrapper ps-page-wrapper menu-layout-static layout-menu-static-desktop-active">
       <app-topbar></app-topbar>
+      <div class="layout-sidebar">
+        <p-scrollPanel class="menu-scroll-content-area" #layoutMenuScroller [style]="{width: '100%',height: '100%'}">
+            <div class="menu-scroll-content">
+              <app-menu [model]="appMenuModel"></app-menu>
+            </div>
+        </p-scrollPanel>
+        <div class="search-area">
+            <p-autoComplete [autoHighlight]="true" [placeholder]="'Tìm kiếm chức năng'" [delay]="200" [scrollHeight]="'400px'" class="search-input" field="label">
+                <ng-template let-item pTemplate="item">
+                    <!-- <div innerHTML="{{ item.label | highlight : searchMenuInput}}"></div> -->
+                </ng-template>
+            </p-autoComplete>
+            <button pButton type="button" icon="fa fa-search" class="search-btn">
+            </button>
+        </div>
+      </div>
       <main class="content">
         <router-outlet></router-outlet>
       </main>

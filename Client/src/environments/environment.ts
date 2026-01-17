@@ -22,7 +22,7 @@ export const environment = {
     clientDomain: {
         appDomain: 'https://fa.friends.vn',
         qthtDomain: 'https://admin.fa.friends.vn',
-        idPhanhe: 2,
+        idPhanhe: 1,
     },
     authenticationSettings: {
         clientId: 'workmanagement',

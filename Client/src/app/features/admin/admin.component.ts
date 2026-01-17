@@ -6,6 +6,10 @@ import { AppTopbarComponent } from './app-topbar/app-topbar.component';
 import { environment } from '../../../environments/environment';
 import { CommonService } from '../../core/services/common.service';
 import { GlobalService } from '../../core/services/global.service';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AppMenuComponent } from './app-menu/app-menu.component';
+import { HtmenuService } from '../../core/services/htmenu.service';
 enum MenuOrientation {
     STATIC,
     OVERLAY,
@@ -13,33 +17,35 @@ enum MenuOrientation {
     HORIZONTAL
 }
 @Component({
-  selector: 'app-admin',
-  standalone: true,
-  imports: [RouterOutlet, CommonModule,ButtonModule,AppTopbarComponent],
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+    selector: 'app-admin',
+    standalone: true,
+    imports: [RouterOutlet, CommonModule, ButtonModule, AppTopbarComponent, ScrollPanelModule, AutoCompleteModule, AppMenuComponent],
+    templateUrl: './admin.component.html',
+    styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-  menuClick?: boolean;
-  profileMode = 'top';
-  rotateMenuButton?: boolean;
-  topbarMenuActive?: boolean;
-  overlayMenuActive?: boolean;
-  layoutMode: MenuOrientation = MenuOrientation.STATIC;
-  staticMenuDesktopInactive = true;
-  staticMenuMobileActive?: boolean;
-  topbarItemClick?: boolean;
-  constructor(
-    private _router: Router,
-    public _commonService: CommonService,
-    private injector: Injector,
-    private _globalService: GlobalService,
-        ) { }
+    menuClick?: boolean;
+    profileMode = 'top';
+    rotateMenuButton?: boolean;
+    topbarMenuActive?: boolean;
+    overlayMenuActive?: boolean;
+    layoutMode: MenuOrientation = MenuOrientation.STATIC;
+    staticMenuDesktopInactive = true;
+    staticMenuMobileActive?: boolean;
+    topbarItemClick?: boolean;
+    appMenuModel: any[] | undefined;
+    constructor(
+        private _router: Router,
+        public _commonService: CommonService,
+        private injector: Injector,
+        private _globalService: GlobalService,
+        private _menuService: HtmenuService
+    ) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-      onSwitchModule(moduleCode: number) {
+    onSwitchModule(moduleCode: number) {
         switch (moduleCode) {
             case 1: {
                 this._router.navigate([environment.clientDomain.qthtDomain]);
@@ -102,5 +108,12 @@ export class AdminComponent implements OnInit {
         this.staticMenuMobileActive = false;
     }
 
-
+    loadMenu() {
+        this._menuService.getByIdPhanHe(environment.clientDomain.idPhanhe).then(rs => {
+            if (rs.status) {
+                this.appMenuModel = rs.data;
+                console.log(this.appMenuModel);
+            }
+        });
+    }
 }

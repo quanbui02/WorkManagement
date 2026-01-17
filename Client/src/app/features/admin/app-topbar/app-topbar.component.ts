@@ -23,79 +23,79 @@ import { environment } from '../../../../environments/environment';
   imports: [CommonModule]
 })
 export class AppTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
-    environment = environment;
-    searchKey = '';
+  environment = environment;
+  searchKey = '';
 
-    _unSubscribeAll = new Subject<any>();
-    _sub?: Subscription;
-    currentRoute = '';
-    fileApi = '';
-    isShowMenu: boolean = false;
-    position = '';
-    avatarUrl = '';
-    crrUser?: User;
-    display: any;
-    mySetting = new VsMySetting();
-    mySettingEdit = new VsMySetting();
-    formGroup = [];
-    balance = 0;
-    balanceBlock = 0;
-    items?: Observable<any[]>;
-    list?: Array<any>;
-    citiesRef?: Array<any>;
-    docRef: any;
-    CallTransactions?: {
-        TransactionId: string
-    }
-    titleChange = false;
-    interval: any;
-    @Output() vsclosePopup = new EventEmitter<any>();
+  _unSubscribeAll = new Subject<any>();
+  _sub?: Subscription;
+  currentRoute = '';
+  fileApi = '';
+  isShowMenu: boolean = false;
+  position = '';
+  avatarUrl = '';
+  crrUser?: User;
+  display: any;
+  mySetting = new VsMySetting();
+  mySettingEdit = new VsMySetting();
+  formGroup = [];
+  balance = 0;
+  balanceBlock = 0;
+  items?: Observable<any[]>;
+  list?: Array<any>;
+  citiesRef?: Array<any>;
+  docRef: any;
+  CallTransactions?: {
+    TransactionId: string
+  }
+  titleChange = false;
+  interval: any;
+  @Output() vsclosePopup = new EventEmitter<any>();
 
-    constructor(
-        public app: AdminComponent,
-        private _activatedRoute: ActivatedRoute,
-        private _customRouteService: CustomRouterService,
-        private _router: Router,
-        private _userService: UserService,
-        public _globalService: GlobalService,
-        public _commonService: CommonService,
-        private _mySettingService: VsMySettingService,
-        private _EventEmitterService: EventEmitterService,
-        private titleService: Title,
-    ) {}
+  constructor(
+    public app: AdminComponent,
+    private _activatedRoute: ActivatedRoute,
+    private _customRouteService: CustomRouterService,
+    private _router: Router,
+    private _userService: UserService,
+    public _globalService: GlobalService,
+    public _commonService: CommonService,
+    private _mySettingService: VsMySettingService,
+    private _EventEmitterService: EventEmitterService,
+    private titleService: Title,
+  ) { }
 
-    async ngOnInit() {
-        this.mySetting = this._mySettingService.getCurrentSetting();
-        this.crrUser = await this._userService.getCurrentUser();
-        console.log(this.crrUser);
-      
-        //this._EventEmitterService.updateCountIconMessageChat.subscribe(item => this.mySetting = item);
-    }
+  async ngOnInit() {
+    this.mySetting = this._mySettingService.getCurrentSetting();
+    this.crrUser = await this._userService.getCurrentUser();
+    console.log(this.crrUser);
 
-    ngAfterViewInit(): void {
-      //throw new Error('Method not implemented.');
-    }
-    ngOnDestroy(): void {
-      //throw new Error('Method not implemented.');
-    }
+    //this._EventEmitterService.updateCountIconMessageChat.subscribe(item => this.mySetting = item);
+  }
 
-    logOut() {
-      localStorage.clear();
-      sessionStorage.clear();
-      window.location.href = '/login';
-    }
+  ngAfterViewInit(): void {
+    //throw new Error('Method not implemented.');
+  }
+  ngOnDestroy(): void {
+    //throw new Error('Method not implemented.');
+  }
 
-    showMenu(event: Event) {
-      //event.preventDefault();
-      this.isShowMenu = !this.isShowMenu;
-    }
+  logOut() {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = '/login';
+  }
 
-    @HostListener('document:click', ['$event'])
-    onClickOutside(event: Event) {
-        const target = event.target as HTMLElement;
-        if (!target.closest('.my-menu')) {
-            this.isShowMenu = false;
-        }
+  showMenu(event: Event) {
+    //event.preventDefault();
+    this.isShowMenu = !this.isShowMenu;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.my-menu')) {
+      this.isShowMenu = false;
     }
+  }
 
 }

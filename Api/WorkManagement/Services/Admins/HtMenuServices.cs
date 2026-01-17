@@ -68,9 +68,9 @@ namespace WorkManagement.Services.Admins
         public async Task<object> Gets(int id)
         {
             var query = from m in _db.HtMenu
-                        where (id < 0 || m.Id == id)
-                            && m.IsDeleted == false
+                        where m.IsDeleted == false
                             && m.TrangThai == 1
+                            && m.PhanHe == id
                         select m;
 
             return Result<object>.Success(query);

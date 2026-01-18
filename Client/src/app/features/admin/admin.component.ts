@@ -10,6 +10,9 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AppMenuComponent } from './app-menu/app-menu.component';
 import { HtmenuService } from '../../core/services/htmenu.service';
+import { AiAsissTantService } from '../../core/services/aiAsissTant.service';
+import { FormsModule } from '@angular/forms';
+
 enum MenuOrientation {
     STATIC,
     OVERLAY,
@@ -19,7 +22,7 @@ enum MenuOrientation {
 @Component({
     selector: 'app-admin',
     standalone: true,
-    imports: [RouterOutlet, CommonModule, ButtonModule, AppTopbarComponent, ScrollPanelModule, AutoCompleteModule, AppMenuComponent],
+    imports: [RouterOutlet, CommonModule, ButtonModule, AppTopbarComponent, ScrollPanelModule, AutoCompleteModule, AppMenuComponent,FormsModule],
     templateUrl: './admin.component.html',
     styleUrls: ['./admin.component.scss']
 })
@@ -34,12 +37,16 @@ export class AdminComponent implements OnInit {
     staticMenuMobileActive?: boolean;
     topbarItemClick?: boolean;
     appMenuModel: any[] | undefined;
+    aiInput: string = '';
+    aiResponse: any = null;
+    aiLoading = false;
     constructor(
         private _router: Router,
         public _commonService: CommonService,
         private injector: Injector,
         private _globalService: GlobalService,
-        private _menuService: HtmenuService
+        private _menuService: HtmenuService,
+        private _aiAsissTantService: AiAsissTantService
     ) { }
 
     ngOnInit() {
@@ -116,4 +123,26 @@ export class AdminComponent implements OnInit {
             }
         });
     }
+
+    sendAi() {
+    if (!this.aiInput || this.aiInput.trim() === '') {
+        return;
+    }
+
+    this.aiLoading = true;
+    this.aiResponse = null;
+
+    this._aiAsissTantService.chat({ message: this.aiInput })
+        .then(res => {
+            this.aiResponse = res.data;
+        })
+        .catch(err => {
+            console.error(err);
+            this.aiResponse = 'Lỗi khi gọi AI';
+        })
+        .finally(() => {
+            this.aiLoading = false;
+        });
+}
+
 }

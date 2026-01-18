@@ -15,6 +15,32 @@
             <button pButton type="button" icon="fa fa-search" class="search-btn">
             </button>
         </div>
+              <div class="ai-test-box" style="padding:12px; border-bottom:1px solid #ddd;">
+    <input
+        type="text"
+        [(ngModel)]="aiInput"
+        placeholder="Nhập lệnh cho AI (vd: xin chào, user 5 là ai)"
+        style="width:70%; padding:6px;"
+    />
+
+    <button
+        pButton
+        type="button"
+        label="Gửi AI"
+        icon="pi pi-send"
+        class="p-ml-2"
+        (click)="sendAi()"
+        [disabled]="aiLoading">
+    </button>
+
+    <div *ngIf="aiLoading" style="margin-top:8px;">
+        ⏳ AI đang xử lý...
+    </div>
+
+    <pre *ngIf="aiResponse" style="margin-top:8px; white-space: pre-wrap;">
+{{ aiResponse }}
+    </pre>
+</div>
       </div>
       <main class="content">
         <router-outlet></router-outlet>

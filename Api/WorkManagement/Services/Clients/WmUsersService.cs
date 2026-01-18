@@ -3,12 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Work.DataContext;
 using Work.DataContext.Models;
 using WorkManagement.Common;
+using WorkManagement.Models;
 
 namespace WorkManagement.Services.Clients
 {
     public interface IWmUsersService : IBaseService<Users>
     {
         Task<object> GetDetail(int id);
+        Task<List<UserSearchDto>> SearchByName(string name);
     }
 
     public class WmUsersService : BaseService<Users, WorkManagementContext>, IWmUsersService
@@ -38,7 +40,24 @@ namespace WorkManagement.Services.Clients
                 return Result<object>.Error("Không tìm thấy dữ liệu này");
             }
 
-            return Result<object>.Success(data);
+            //return Result<object>.Success(data);
+            return data;
         }
+        public async Task<List<UserSearchDto>> SearchByName(string name)
+        {
+            return await Db.Users
+                .Where(x => x.Name.Contains(name))
+                .Select(x => new UserSearchDto
+                {
+                    UserIdGuid = x.UserIdGuid,
+                    UserId = x.UserId,
+                    Name = x.Name,
+                    UserName = x.UserName,
+                    Email = x.Email
+                })
+                .ToListAsync();
+        }
+
+
     }
 }

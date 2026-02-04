@@ -38,4 +38,29 @@
         public string UserName { get; set; }
         public string Email { get; set; }
     }
+
+    public class OllamaChatRequest
+    {
+        public string model { get; set; }
+        public List<OllamaMessage> messages { get; set; }
+        public bool stream { get; set; }
+        public object options { get; set; }
+    }
+
+    public class OllamaMessage
+    {
+        public string role { get; set; }   // system | user | assistant
+        public string content { get; set; }
+    }
+
+    public class OllamaChatResponse
+    {
+        public OllamaChatMessage message { get; set; }
+    }
+
+    public class OllamaChatMessage
+    {
+        public string content { get; set; }
+    }
+
 }

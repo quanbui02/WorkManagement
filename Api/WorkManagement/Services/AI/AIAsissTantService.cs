@@ -41,23 +41,12 @@ namespace WorkManagement.Services.AI
 
         private async Task<string> DetectMode(string message)
         {
-            var prompt = $@"
-                Bạn là bộ phân loại yêu cầu.
-                Chỉ trả JSON.
+            var result = await CallOllamaChat(
+                "Chỉ trả JSON: { \"mode\": \"CHAT\" | \"TOOL\" }",
+                message
+            );
 
-                Schema:
-                {{ ""mode"": ""CHAT"" | ""TOOL"" }}
-
-                Quy tắc:
-                - Chào hỏi, nói chuyện, hỏi chung chung → CHAT
-                - Hỏi thông tin user, tìm user, xem chi tiết → TOOL
-
-                Câu người dùng:
-                {message}
-                ";
-
-            var raw = await CallOllama(prompt);
-            var json = ExtractJson(raw);
+            var json = ExtractJson(result);
 
             try
             {
@@ -66,28 +55,24 @@ namespace WorkManagement.Services.AI
             }
             catch
             {
-                return "CHAT"; // fail-safe
+                return "CHAT";
             }
         }
 
+
         private async Task<string> ChatNaturally(string message)
         {
-            var prompt = $@"
-                            Bạn là trợ lý AI thân thiện trong hệ thống nội bộ.
-                            Trả lời tự nhiên, ngắn gọn, tiếng Việt.
-                            Không trả JSON.
-
-                            Câu người dùng:
-                            {message}
-                            ";
-
-            return await CallOllama(prompt);
+            return await CallOllamaChat(
+                "Bạn là trợ lý AI nội bộ, trả lời ngắn gọn, tiếng Việt.",
+                message
+            );
         }
+
 
         private async Task<AiIntentResultUserInfo?> ExtractIntent(string message)
         {
-            var prompt = $@"
-                            Bạn là AI hỗ trợ hệ thống quản lý người dùng.
+            var result = await CallOllamaChat(
+            @"Bạn là AI hỗ trợ hệ thống quản lý người dùng.
                             Chỉ trả JSON, không giải thích.
 
                             Schema:
@@ -102,15 +87,15 @@ namespace WorkManagement.Services.AI
                             - Hỏi theo tên → SEARCH_USER_BY_NAME
                             - Không rõ → UNKNOWN
 
-                            Câu người dùng:
-                            {message}
-                            ";
+                    Không trả chữ thừa.",
+            message
+            );
 
-            var raw = await CallOllama(prompt);
-            var json = ExtractJson(raw);
 
+            var json = ExtractJson(result);
             return ParseIntent(json);
         }
+
 
         private async Task<string> HandleTool(AiIntentResultUserInfo intent, ClaimsPrincipal user)
         {
@@ -163,23 +148,35 @@ namespace WorkManagement.Services.AI
                         ";
         }
 
-        private async Task<string> CallOllama(string prompt)
+        private async Task<string> CallOllamaChat(
+            string systemPrompt,
+            string userPrompt)
         {
-            var payload = new
+            var payload = new OllamaChatRequest
             {
                 model = "qwen2.5:1.5b",
-                prompt = prompt,
-                stream = false
+                stream = false,
+                messages = new()
+        {
+            new() { role = "system", content = systemPrompt },
+            new() { role = "user", content = userPrompt }
+        },
+                options = new
+                {
+                    temperature = 0.2,   // 🔴 RẤT QUAN TRỌNG
+                    top_p = 0.9
+                }
             };
 
             var res = await _http.PostAsJsonAsync(
-                "http://localhost:11434/api/generate",
+                "http://localhost:11434/api/chat",
                 payload
             );
 
-            var json = await res.Content.ReadFromJsonAsync<OllamaResponse>();
-            return json?.response;
+            var json = await res.Content.ReadFromJsonAsync<OllamaChatResponse>();
+            return json?.message?.content;
         }
+
 
         private AiIntentResultUserInfo ParseIntent(string json)
         {

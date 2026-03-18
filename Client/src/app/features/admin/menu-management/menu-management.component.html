@@ -1,0 +1,132 @@
+<p-toast></p-toast>
+
+<div class="menu-management-container">
+  <div class="page-header">
+    <h2>QUẢN LÝ MENU</h2>
+  </div>
+
+  <div class="menu-management-content">
+    <!-- Bên trái: Danh sách menu tree -->
+    <div class="menu-tree-panel">
+      <div class="panel-header">
+        <span>DANH SÁCH MENU</span>
+      </div>
+      <div class="panel-body">
+        <p-tree
+          [value]="treeNodes"
+          selectionMode="single"
+          [(selection)]="selectedNode"
+          (onNodeSelect)="onNodeSelect($event)"
+          (onNodeContextMenuSelect)="onNodeRightClick($event)"
+          [contextMenu]="cm"
+          [filter]="true"
+          filterPlaceholder="Tìm kiếm menu..."
+          scrollHeight="calc(100vh - 260px)">
+        </p-tree>
+        <p-contextMenu #cm [model]="contextMenuItems"></p-contextMenu>
+      </div>
+    </div>
+
+    <!-- Bên phải: Form cập nhật -->
+    <div class="menu-form-panel">
+      <div class="panel-header">
+        <span>CẬP NHẬT THÔNG TIN MENU</span>
+      </div>
+      <div class="panel-body">
+        <div class="form-grid">
+          <div class="form-row">
+            <label class="form-label">Cấp cha</label>
+            <div class="form-value">
+              <span class="cap-cha-text">{{ capCha }}</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label">Tên menu <span class="required">*</span></label>
+            <div class="form-value">
+              <input pInputText type="text" [(ngModel)]="form.ten" placeholder="Nhập tên menu" class="w-full" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label">URL</label>
+            <div class="form-value">
+              <input pInputText type="text" [(ngModel)]="form.url" placeholder="/duong-dan" class="w-full" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label">Icon</label>
+            <div class="form-value">
+              <input pInputText type="text" [(ngModel)]="form.icon" placeholder="pi pi-home" class="w-full" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label">Mã</label>
+            <div class="form-value">
+              <input pInputText type="text" [(ngModel)]="form.ma" placeholder="Mã menu" class="w-full" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label">Thứ tự</label>
+            <div class="form-value">
+              <p-inputNumber [(ngModel)]="form.thuTu" [showButtons]="false" [min]="0" class="w-full"></p-inputNumber>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label">Trạng thái</label>
+            <div class="form-value">
+              <p-select
+                [options]="trangThaiOptions"
+                [(ngModel)]="form.trangThai"
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Chọn trạng thái"
+                class="w-full">
+              </p-select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label">Phân hệ</label>
+            <div class="form-value">
+              <p-select
+                [options]="phanHeOptions"
+                [(ngModel)]="form.phanHe"
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Chọn phân hệ"
+                class="w-full">
+              </p-select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label">Phân quyền</label>
+            <div class="form-value">
+              <input pInputText type="text" [(ngModel)]="form.phanQuyen" placeholder="Phân quyền" class="w-full" />
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <p-button
+              label="Lưu"
+              icon="pi pi-save"
+              (onClick)="save()"
+              severity="success">
+            </p-button>
+            <p-button
+              label="Hủy"
+              icon="pi pi-times"
+              (onClick)="cancel()"
+              severity="secondary">
+            </p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

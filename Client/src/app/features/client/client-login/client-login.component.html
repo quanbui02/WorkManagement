@@ -1,0 +1,36 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="logo-badge">WM</div>
+      <h2>Work Management</h2>
+      <p>Đăng nhập để tiếp tục</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input type="text" formControlName="username" placeholder="Nhập tên tài khoản" required class="form-input peer"/>
+        <label class="form-label">Tên đăng nhập</label>
+      </div>
+
+      <div class="form-group">
+        <input type="password" formControlName="password" placeholder="Nhập mật khẩu" required class="form-input peer"/>
+        <label class="form-label">Mật khẩu</label>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
+      <div class="button-lg">
+        <button type="submit" class="btn-login" [disabled]="loading">
+          <span *ngIf="!loading">Đăng nhập</span>
+          <span *ngIf="loading">Đang xử lý...</span>
+        </button>
+      </div>
+
+      <div class="login-footer">
+        <a href="/admin/login">Đăng nhập quản trị →</a>
+      </div>
+    </form>
+  </div>
+</div>

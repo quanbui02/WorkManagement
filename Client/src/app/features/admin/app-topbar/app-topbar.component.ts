@@ -82,7 +82,7 @@ export class AppTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
   logOut() {
     localStorage.clear();
     sessionStorage.clear();
-    window.location.href = '/login';
+    window.location.href = '/admin/login';
   }
 
   showMenu(event: Event) {

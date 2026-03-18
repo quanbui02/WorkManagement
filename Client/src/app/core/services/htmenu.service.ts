@@ -21,7 +21,7 @@ export class HtmenuService extends BaseService {
     }
 
     getDetailById(id: number): Promise<ResponseResult> {
-        const url = `${this.serviceUri}/GetDetailById?id=${id}`;
+        const url = `${this.serviceUri}/GetDetail/${id}`;
         return this.defaultGet(url);
     }
 
@@ -60,5 +60,10 @@ export class HtmenuService extends BaseService {
             this._http.post<ResponseResult>(url, null)
                 .pipe(catchError(err => this.handleError(err, this._injector)))
         );
+    }
+
+    deleteMenu(id: number): Promise<ResponseResult> {
+        const url = `${this.serviceUri}/Delete/${id}`;
+        return this.defaultDelete(url);
     }
 }

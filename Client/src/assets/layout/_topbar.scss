@@ -17,6 +17,7 @@
         width: 20rem;
         display: flex;
         align-items: center;
+        justify-content: space-between;
     }
 
     .layout-topbar-logo {
@@ -72,9 +73,6 @@
         }
     }
 
-    .layout-menu-button {
-        margin-right: 0.5rem;
-    }
 
     .layout-topbar-menu-button {
         display: none;

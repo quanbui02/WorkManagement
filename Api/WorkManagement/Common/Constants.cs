@@ -111,6 +111,12 @@ namespace Work.API.Common
             } 
 
         }
+
+        public static class PhanHe
+        {
+            public static int QuanTriHeThong = 1;
+            public static int MenuChucNang = 2;
+        }
     }
 
 }

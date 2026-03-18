@@ -64,13 +64,13 @@ namespace WorkManagement.Services.Admins
             await _db.SaveChangesAsync();
             return Result<HtMenu>.Success(obj, 1, "Cập nhật mới thành công.");
         }
-    
+
         public async Task<object> Gets(int id)
         {
             var query = from m in _db.HtMenu
                         where m.IsDeleted == false
                             && m.TrangThai == 1
-                            && m.PhanHe == id
+                            && (id <= 0 || m.PhanHe == id)
                         select m;
 
             return Result<object>.Success(query);

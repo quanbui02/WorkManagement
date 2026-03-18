@@ -1,21 +1,27 @@
-    <div class="layout-wrapper ps-page-wrapper menu-layout-static layout-menu-static-desktop-active">
-      <app-topbar></app-topbar>
-      <div class="layout-sidebar">
-        <p-scrollPanel class="menu-scroll-content-area" #layoutMenuScroller [style]="{width: '100%',height: '100%'}">
-            <div class="menu-scroll-content">
-              <app-menu [model]="appMenuModel"></app-menu>
-            </div>
-        </p-scrollPanel>
-        <div class="search-area">
-            <p-autoComplete [autoHighlight]="true" [placeholder]="'Tìm kiếm chức năng'" [delay]="200" [scrollHeight]="'400px'" class="search-input" field="label">
-                <ng-template let-item pTemplate="item">
-                    <!-- <div innerHTML="{{ item.label | highlight : searchMenuInput}}"></div> -->
-                </ng-template>
-            </p-autoComplete>
-            <button pButton type="button" icon="fa fa-search" class="search-btn">
-            </button>
-        </div>
-              <div class="ai-test-box" style="padding:12px; border-bottom:1px solid #ddd;">
+<div class="layout-wrapper" [ngClass]="{
+       'layout-static': true,
+       'layout-static-inactive': staticMenuDesktopInactive,
+       'layout-mobile-active': staticMenuMobileActive,
+       'layout-overlay': isOverlay(),
+       'layout-overlay-active': overlayMenuActive
+     }">
+  <app-topbar></app-topbar>
+  <div class="layout-sidebar">
+    <p-scrollPanel class="menu-scroll-content-area" #layoutMenuScroller [style]="{width: '100%',height: '100%'}">
+      <div class="menu-scroll-content">
+        <app-menu [model]="appMenuModel" basePath="/admin"></app-menu>
+      </div>
+    </p-scrollPanel>
+    <!-- <div class="search-area">
+      <p-autoComplete [autoHighlight]="true" [placeholder]="'Tìm kiếm chức năng'" [delay]="200" [scrollHeight]="'400px'"
+        class="search-input" field="label">
+        <ng-template let-item pTemplate="item">
+        </ng-template>
+      </p-autoComplete>
+      <button pButton type="button" icon="fa fa-search" class="search-btn">
+      </button>
+    </div> -->
+    <!-- <div class="ai-test-box" style="padding:12px; border-bottom:1px solid #ddd;">
     <input
         type="text"
         [(ngModel)]="aiInput"
@@ -38,11 +44,13 @@
     </div>
 
     <pre *ngIf="aiResponse" style="margin-top:8px; white-space: pre-wrap;">
-{{ aiResponse }}
+        {{ aiResponse }}
     </pre>
-</div>
-      </div>
-      <main class="content">
-        <router-outlet></router-outlet>
-      </main>
+    </div> -->
+  </div>
+  <div class="layout-main-container">
+    <div class="layout-main">
+      <router-outlet></router-outlet>
     </div>
+  </div>
+</div>

@@ -33,7 +33,7 @@ export class AdminComponent implements OnInit {
     topbarMenuActive?: boolean;
     overlayMenuActive?: boolean;
     layoutMode: MenuOrientation = MenuOrientation.STATIC;
-    staticMenuDesktopInactive = true;
+    staticMenuDesktopInactive = false;
     staticMenuMobileActive?: boolean;
     topbarItemClick?: boolean;
     appMenuModel: any[] | undefined;
@@ -50,6 +50,7 @@ export class AdminComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.loadMenu();
     }
 
     onSwitchModule(moduleCode: number) {
@@ -116,10 +117,9 @@ export class AdminComponent implements OnInit {
     }
 
     loadMenu() {
-        this._menuService.getByIdPhanHe(environment.clientDomain.idPhanhe).then(rs => {
+        this._menuService.getByIdPhanHe(1).then(rs => {
             if (rs.status) {
                 this.appMenuModel = rs.data;
-                console.log(this.appMenuModel);
             }
         });
     }

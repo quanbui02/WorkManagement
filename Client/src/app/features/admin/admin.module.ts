@@ -15,6 +15,12 @@ const routes: Routes = [
           import('./dashboard/dashboard.component')
             .then(c => c.DashboardComponent)
       },
+      {
+        path: 'menu-management',
+        loadComponent: () =>
+          import('./menu-management/menu-management.component')
+            .then(c => c.MenuManagementComponent)
+      },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   }

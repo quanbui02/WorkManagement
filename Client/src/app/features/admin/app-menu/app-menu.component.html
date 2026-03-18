@@ -1,6 +1,9 @@
-<!-- <ul class="layout-menu">
-        <ng-container *ngFor="let item of model; let i = index">
-            <li app-menuitem *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li>
-            <li *ngIf="item.separator" class="menu-separator"></li>
-        </ng-container>
-    </ul> -->
+<p-tree
+  [value]="treeNodes"
+  selectionMode="single"
+  [(selection)]="selectedNode"
+  (onNodeSelect)="onNodeSelect($event)"
+  [filter]="true"
+  filterPlaceholder="Tìm kiếm menu..."
+  class="sidebar-tree">
+</p-tree>

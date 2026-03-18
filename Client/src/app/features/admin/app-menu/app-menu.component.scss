@@ -1,0 +1,53 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.sidebar-tree {
+  ::ng-deep {
+    .p-tree {
+      border: none;
+      padding: 0;
+      background: transparent;
+      width: 100%;
+    }
+
+    .p-tree-node-content {
+      padding: 0.4rem 0.5rem;
+      border-radius: 6px;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background: var(--surface-hover);
+      }
+
+      &.p-tree-node-selected {
+        background: var(--primary-color);
+        color: #fff;
+
+        .p-tree-node-icon,
+        .p-tree-node-label {
+          color: #fff;
+        }
+      }
+    }
+
+    .p-tree-node-label {
+      font-size: 0.875rem;
+    }
+
+    .p-tree-node-icon {
+      margin-right: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .p-tree-filter {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+
+    .p-tree-filter-icon {
+      right: 0.5rem;
+    }
+  }
+}

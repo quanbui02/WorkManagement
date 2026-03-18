@@ -1,0 +1,10 @@
+::ng-deep .menu-button-rotate {
+  i {
+    transform: rotate(180deg);
+    transition: transform 0.3s;
+  }
+}
+
+::ng-deep #menu-button i {
+  transition: transform 0.3s;
+}

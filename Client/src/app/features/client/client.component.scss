@@ -1,0 +1,52 @@
+// Topbar logo
+.topbar-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-color);
+  letter-spacing: -0.25px;
+}
+
+// Menu button
+::ng-deep .menu-button-rotate {
+  i {
+    transform: rotate(180deg);
+    transition: transform 0.3s;
+  }
+}
+
+::ng-deep #menu-button i {
+  transition: transform 0.3s;
+}
+
+.topbar-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

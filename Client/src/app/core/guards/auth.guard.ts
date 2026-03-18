@@ -15,9 +15,14 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const isLoggedIn = this._authService.isLoggedIn();
+
     if (!isLoggedIn) {
-      console.warn('Guard: Chưa đăng nhập, chuyển hướng về /admin/login');
-      this._router.navigate(['/admin/login'], { queryParams: { returnUrl: state.url } });
+      // Redirect theo module đang truy cập
+      const isAdmin = state.url.startsWith('/admin');
+      const loginUrl = isAdmin ? '/admin/login' : '/login';
+
+      console.warn(`Guard: Chưa đăng nhập, chuyển hướng về ${loginUrl}`);
+      this._router.navigate([loginUrl], { queryParams: { returnUrl: state.url } });
       return false;
     }
 

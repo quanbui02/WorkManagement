@@ -1,14 +1,20 @@
 <div class="layout-topbar">
     <div class="layout-topbar-logo-container">
         <div class="topbar-logo-wrapper">
-            <a href="/" (click)="app.onSwitchModule(1)"><img src="{{environment.appMetadata.appDomain.logo}}" class="topbar-logo" /></a>
+            <a href="/" (click)="app.onSwitchModule(1)" class="topbar-logo-link">
+                <span class="logo-badge">WM</span>
+                <span class="logo-text">WorkManagement</span>
+            </a>
         </div>
+        <div class="button-menu-wrapper">
+            <a id="menu-button" href="#" (click)="app.onMenuButtonClick($event)" class="layout-topbar-action layout-menu-button" [ngClass]="{'menu-button-rotate': app.rotateMenuButton}">
+                <i class="pi pi-chevron-left"></i>
+            </a>
+        </div>
+
     </div>
 
     <div class="layout-topbar-actions">
-        <!-- <a id="menu-button" href="#" (click)="app.onMenuButtonClick($event)" [ngClass]="{'menu-button-rotate': app.rotateMenuButton}">
-            <i class="pi pi-chevron-left"></i>
-        </a> -->
 
         <!-- <a id="topbar-menu-button" href="#" (click)="app.onTopbarMenuButtonClick($event)">
             <i class="pi pi-bars"></i>
